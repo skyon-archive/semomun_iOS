@@ -89,7 +89,7 @@ final class StudyToolbarView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateUI(mode: StudyVC.Mode, problem: Problem_Core?, answer: String?) {
+    func updateUI(problem: Problem_Core?, answer: String?) {
         if let answer = answer, problem?.terminated == false {
             self.answerView.configureAnswer(to: answer)
             self.answerButton.isHidden = false
@@ -110,11 +110,6 @@ final class StudyToolbarView: UIStackView {
             self.explanationButton.setTitleColor(.getSemomunColor(.black), for: .normal)
         } else {
             self.explanationButton.isHidden = true
-        }
-        
-        if mode == .practiceTest && (problem?.terminated == false) {
-            self.explanationButton.isHidden = true
-            self.answerButton.isHidden = true
         }
     }
     

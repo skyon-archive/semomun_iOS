@@ -14,10 +14,6 @@ final class SearchVC: UIViewController {
         case searching
         case searchResult
     }
-    enum SearchType {
-        case workbook
-        case workbookGroup
-    }
     @IBOutlet weak var leftSearchIcon: UIImageView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var textResetXButton: UIButton! // text.count > 0 인 경우 표시
@@ -43,11 +39,7 @@ final class SearchVC: UIViewController {
         return view
     }()
     private var isNoResults: Bool {
-        if self.searchType == .workbook {
-            return (self.viewModel?.searchResultWorkbooks.count ?? 0) == 0
-        } else {
-            return (self.viewModel?.searchResultWorkbookGroups.count ?? 0) == 0
-        }
+        (self.viewModel?.searchResultWorkbooks.count ?? 0) == 0
     }
     
     private var status: SearchStatus = .default {
@@ -58,7 +50,6 @@ final class SearchVC: UIViewController {
                 self.hideResetTextButton()
                 self.hideCancelSearchButton()
                 self.searchTextField.text = ""
-                self.searchType = .workbook
                 self.searchOrder = .recentUpload
                 self.viewModel?.removeAllSelectedTags()
                 self.viewModel?.resetSearchInfos()
@@ -74,17 +65,9 @@ final class SearchVC: UIViewController {
             case .searchResult:
                 self.showCancelSearchButton()
                 self.configureTagsCollectionViewHeight()
-                self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
+                self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, order: self.searchOrder)
                 self.dismissKeyboard()
             }
-        }
-    }
-    private var searchType: SearchType = .workbook {
-        didSet {
-            print("searchType: \(searchType)")
-            guard self.status == .searchResult else { return }
-            self.viewModel?.search(keyword: self.searchTextField.text ?? "", rowCount: UICollectionView.columnCount, type: self.searchType, order: self.searchOrder)
-            self.mainCollectionView.reloadData()
         }
     }
     private var searchOrder: DropdownOrderButton.SearchOrder = .recentUpload {
@@ -185,7 +168,7 @@ extension SearchVC {
             self.status = .searching
         }
     }
-
+    
     @objc func textFieldDidTap() {
         self.status = .searching
     }
@@ -247,7 +230,6 @@ extension SearchVC {
         self.bindFavoriteTags()
         self.bindSelectedTags()
         self.bindWorkbooks()
-        self.bindWorkbookGroups()
         self.bindWorkbookDetail()
         self.bindCounts()
         self.bindOfflineStatus()
@@ -287,21 +269,7 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbooks in
                 guard self?.status == .searchResult,
-                      self?.searchType == .workbook,
                       workbooks.isEmpty == false else { return }
-                self?.mainCollectionView.reloadData()
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindWorkbookGroups() {
-        self.viewModel?.$searchResultWorkbookGroups
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] workbookGroups in
-                guard self?.status == .searchResult,
-                      self?.searchType == .workbookGroup,
-                      workbookGroups.isEmpty == false else { return }
                 self?.mainCollectionView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -313,8 +281,7 @@ extension SearchVC {
             .dropFirst()
             .sink(receiveValue: { [weak self] workbookDTO in
                 guard let workbookDTO = workbookDTO,
-                      self?.status == .searchResult,
-                      self?.searchType == .workbook else { return }
+                      self?.status == .searchResult else { return }
                 self?.showWorkbookDetailVC(workbookDTO: workbookDTO)
             })
             .store(in: &self.cancellables)
@@ -322,14 +289,6 @@ extension SearchVC {
     
     private func bindCounts() {
         self.viewModel?.$workbooksCount
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                guard self?.status == .searchResult else { return }
-                self?.mainCollectionView.reloadData()
-            })
-            .store(in: &self.cancellables)
-        self.viewModel?.$workbookGroupsCount
             .receive(on: DispatchQueue.main)
             .dropFirst()
             .sink(receiveValue: { [weak self] _ in
@@ -371,7 +330,6 @@ extension SearchVC: UICollectionViewDelegate {
         guard self.isNoResults == false else { return }
         /// mainCollectionView
         guard self.status == .searchResult else { return }
-        if self.searchType == .workbook {
             guard let workbook = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return }
             if UserDefaultsManager.isLogined == true,
                let workbookCore = CoreUsecase.fetchPreview(wid: workbook.wid) {
@@ -379,15 +337,6 @@ extension SearchVC: UICollectionViewDelegate {
             } else {
                 self.viewModel?.fetchWorkbookDetailInfo(wid: workbook.wid)
             }
-        } else {
-            guard let workbookGroup = self.viewModel?.searchResultWorkbookGroups[safe: indexPath.item] else { return }
-            if UserDefaultsManager.isLogined == true,
-               let workbookGroupCore = CoreUsecase.fetchWorkbookGroup(wgid: workbookGroup.wgid) {
-                self.showWorkbookGroupDetailVC(workbookGroupCore: workbookGroupCore)
-            } else {
-                self.showWorkbookGroupDetailVC(workbookGroupDTO: workbookGroup)
-            }
-        }
     }
 }
 
@@ -402,7 +351,7 @@ extension SearchVC: UICollectionViewDataSource {
             // 검색전 cell UI 확인
             return 0
         }
-        let rawCount = self.searchType == .workbook ? viewModel.searchResultWorkbooks.count : viewModel.searchResultWorkbookGroups.count
+        let rawCount = viewModel.searchResultWorkbooks.count
         return max(1, rawCount)
     }
     
@@ -429,13 +378,8 @@ extension SearchVC: UICollectionViewDataSource {
         /// mainCollectionView
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.identifier, for: indexPath) as? SearchResultCell else { return .init() }
         guard let viewModel = self.viewModel else { return cell }
-        if self.searchType == .workbook {
-            guard let info = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return cell }
-            cell.configure(with: info, networkUsecase: viewModel.networkUsecase)
-        } else {
-            guard let info = self.viewModel?.searchResultWorkbookGroups[safe: indexPath.item] else { return cell }
-            cell.configure(with: info, networkUsecase: viewModel.networkUsecase)
-        }
+        guard let info = self.viewModel?.searchResultWorkbooks[safe: indexPath.item] else { return cell }
+        cell.configure(with: info, networkUsecase: viewModel.networkUsecase)
         return cell
     }
     
@@ -446,10 +390,8 @@ extension SearchVC: UICollectionViewDataSource {
             header.isHidden = true
             return header
         }
-        let workbookCount = self.viewModel?.workbooksCount ?? 0
-        let workbookGroupCount = self.viewModel?.workbookGroupsCount ?? 0
         header.isHidden = false
-        header.configure(delegate: self, workbookCount: workbookCount, workbookGroupCount: workbookGroupCount, currentType: self.searchType, order: self.searchOrder)
+        header.configure(delegate: self, order: self.searchOrder)
         return header
     }
 }
@@ -522,29 +464,21 @@ extension SearchVC: UITextFieldDelegate {
 }
 
 extension SearchVC {
-     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-         guard self.status == .searchResult else { return }
-         guard self.mainCollectionView.contentOffset.y >= (self.mainCollectionView.contentSize.height - self.mainCollectionView.bounds.size.height) else { return }
-         
-         if self.searchType == .workbook {
-             self.viewModel?.fetchWorkbooks(rowCount: UICollectionView.columnCount, order: self.searchOrder)
-         } else {
-             self.viewModel?.fetchWorkbookGroups(rowCount: UICollectionView.columnCount, order: self.searchOrder)
-         }
-     }
-
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard self.status == .searchResult else { return }
+        guard self.mainCollectionView.contentOffset.y >= (self.mainCollectionView.contentSize.height - self.mainCollectionView.bounds.size.height) else { return }
+        
+        self.viewModel?.fetchWorkbooks(rowCount: UICollectionView.columnCount, order: self.searchOrder)
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.viewModel?.isPaging = false
     }
- }
+}
 
 extension SearchVC: SearchOrderDelegate {
     func changeOrder(to order: DropdownOrderButton.SearchOrder) {
         self.searchOrder = order
-    }
-    
-    func changeType(to type: SearchType) {
-        self.searchType = type
     }
 }
 

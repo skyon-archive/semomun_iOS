@@ -523,54 +523,6 @@ extension NetworkUsecase: UserSubmissionSendable {
     }
 }
 
-extension NetworkUsecase: UserTestResultFetchable {
-    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void) {
-        self.network.request(url: NetworkURL.workbookResultDirectory(wid), param: ["type": "public"], method: .get, tokenRequired: true) { result in
-            guard let statusCode = result.statusCode,
-                  let data = result.data else {
-                completion(.FAIL, nil)
-                return
-            }
-            
-            if let decodedData = self.decodeRequested(PublicTestResultOfDB.self, from: data) {
-                completion(.init(statusCode: statusCode), decodedData)
-            } else {
-                completion(.DECODEERROR, nil)
-            }
-        }
-    }
-    
-    func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.workbookGroupResultsDirectory(wgid), method: .get, tokenRequired: true) { result in
-            guard let statusCode = result.statusCode,
-                  let data = result.data else {
-                completion(.FAIL, [])
-                return
-            }
-            
-            if let decodedData = self.decodeRequested([PrivateTestResultOfDB].self, from: data) {
-                completion(.init(statusCode: statusCode), decodedData)
-            } else {
-                completion(.DECODEERROR, [])
-            }
-        }
-    }
-}
-
-extension NetworkUsecase: UserTestResultSendable {
-    func sendUserTestResult(testResult: CalculatedTestResult, completion: @escaping (NetworkStatus) -> Void) {
-        self.network.request(url: NetworkURL.scoringResult, param: testResult, method: .post, tokenRequired: true) { result in
-            
-            if let statusCode = result.statusCode {
-                completion(.init(statusCode: statusCode))
-            } else {
-                completion(.FAIL)
-            }
-        }
-    }
-}
-
-
 // MARK: - Reportable
 extension NetworkUsecase: ErrorReportable {
     func postProblemError(error: ErrorReport, completion: @escaping (NetworkStatus) -> Void) {

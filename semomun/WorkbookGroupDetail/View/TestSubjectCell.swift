@@ -10,7 +10,6 @@ import UIKit
 typealias TestSubjectNetworkUsecase = (S3ImageFetchable & SectionDownloadable)
 protocol TestSubjectCellObserber: AnyObject {
     func showAlertDownloadSectionFail()
-    func showPracticeTestSection(workbook: Preview_Core)
 }
 
 final class TestSubjectCell: BookcoverCell {

@@ -8,8 +8,8 @@
 import Foundation
 
 final class SingleWithNoAnswerVM: PageVM {
-    override init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
-        super.init(delegate: delegate, pageData: pageData, mode: mode)
+    override init(delegate: PageDelegate, pageData: PageData) {
+        super.init(delegate: delegate, pageData: pageData)
         self.problem?.setValue(true, forKey: "correct")
     }
 }

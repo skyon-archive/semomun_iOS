@@ -297,14 +297,6 @@ extension HomeVC: UICollectionViewDelegate {
             self.viewModel?.fetchWorkbook(wid: wid)
         }
     }
-    
-    private func searchWorkbookGroup(info: WorkbookGroupPreviewOfDB) {
-        if UserDefaultsManager.isLogined, let coreInfo = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
-            self.showWorkbookGroupDetailVC(workbookGroupCore: coreInfo)
-        } else {
-            self.showWorkbookGroupDetailVC(workbookGroupDTO: info)
-        }
-    }
 }
 
 // MARK: Navigation 관련

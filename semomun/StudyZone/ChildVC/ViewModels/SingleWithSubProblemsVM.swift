@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 final class SingleWithSubProblemsVM: PageVM {
-    override init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
-        super.init(delegate: delegate, pageData: pageData, mode: mode)
+    override init(delegate: PageDelegate, pageData: PageData) {
+        super.init(delegate: delegate, pageData: pageData)
     }
     
     override func isCorrect(input: String, answer: String) -> Bool {

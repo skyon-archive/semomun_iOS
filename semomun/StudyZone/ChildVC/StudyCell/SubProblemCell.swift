@@ -38,11 +38,11 @@ final class SubProblemCell: StudyCell, CellLayoutable, CellRegisterable {
         self.contentView.addSubview(self.answerView)
     }
     
-    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?, _ mode: StudyVC.Mode? = .default) {
+    override func prepareForReuse(_ contentImage: UIImage?, _ problem: Problem_Core?, _ toolPicker: PKToolPicker?) {
         super.prepareForReuse(contentImage, problem, toolPicker)
 
         let answer = self.problem?.answer?.split(separator: "$").joined(separator: ", ")
-        self.toolbarView.updateUI(mode: self.mode, problem: problem, answer: answer)
+        self.toolbarView.updateUI(problem: problem, answer: answer)
         
         self.updateAnswerView()
         self.updateCorrectImage()

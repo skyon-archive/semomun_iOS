@@ -84,8 +84,6 @@ class HomeDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVCDelegates {
         
         if let wid = cellData.workbookDetailInfo.wid {
             self.searchWorkbook(wid: wid)
-        } else if let info = cellData.workbookDetailInfo.workbookGroupPreviewOfDB {
-            self.searchWorkbookGroup(info: info)
         }
     }
     
@@ -183,14 +181,6 @@ extension HomeDetailVC {
             self.showWorkbookDetailVC(workbookCore: book)
         } else {
             self.viewModel.fetchWorkbook(wid: wid)
-        }
-    }
-    
-    private func searchWorkbookGroup(info: WorkbookGroupPreviewOfDB) {
-        if UserDefaultsManager.isLogined, let coreInfo = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
-            self.showWorkbookGroupDetailVC(workbookGroupCore: coreInfo)
-        } else {
-            self.showWorkbookGroupDetailVC(workbookGroupDTO: info)
         }
     }
 }

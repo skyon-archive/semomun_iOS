@@ -16,7 +16,7 @@ final class SingleWithNoAnswerVC: FormZero {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let viewModel = viewModel {
-            self.toolbarView.updateUI(mode: viewModel.mode, problem: viewModel.problem, answer: .none)
+            self.toolbarView.updateUI(problem: viewModel.problem, answer: .none)
             self.toolbarView.configureDelegate(self)
         }
         self.addScoring()

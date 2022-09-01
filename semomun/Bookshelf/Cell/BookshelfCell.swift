@@ -9,7 +9,6 @@ import UIKit
 
 protocol BookshelfCellDelegate: AnyObject {
     func showWorkbookDetailVC(wid: Int)
-    func showWorkbookGroupDetailVC(wgid: Int)
 }
 
 final class BookshelfCell: BookcoverCell {
@@ -57,13 +56,7 @@ final class BookshelfCell: BookcoverCell {
     }
     
     private func touchAction() {
-        switch self.infoType {
-        case .workbook:
             guard let wid = self.workbookInfo?.wid else { return }
             self.delegate?.showWorkbookDetailVC(wid: wid)
-        case .workbookGroup:
-            guard let wgid = self.workbookGroupInfo?.wgid else { return }
-            self.delegate?.showWorkbookGroupDetailVC(wgid: wgid)
-        }
     }
 }

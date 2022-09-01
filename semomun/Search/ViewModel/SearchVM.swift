@@ -16,9 +16,7 @@ final class SearchVM {
     @Published private(set) var favoriteTags: [TagOfDB] = []
     @Published private(set) var selectedTags: [TagOfDB] = []
     @Published private(set) var workbooksCount: Int = 0
-    @Published private(set) var workbookGroupsCount: Int = 0
     @Published private(set) var searchResultWorkbooks: [WorkbookPreviewOfDB] = []
-    @Published private(set) var searchResultWorkbookGroups: [WorkbookGroupPreviewOfDB] = []
     @Published private(set) var workbookDetailInfo: WorkbookOfDB?
     @Published private(set) var warning: (title: String, text: String)?
     @Published private(set) var offlineStatus: Bool = false
@@ -81,16 +79,11 @@ extension SearchVM {
         }
     }
     
-    func search(keyword: String, rowCount: Int, type: SearchVC.SearchType, order: DropdownOrderButton.SearchOrder) {
+    func search(keyword: String, rowCount: Int, order: DropdownOrderButton.SearchOrder) {
         self.resetSearchInfos()
         self.keyword = keyword
-        self.fetchAnotherCount(currentType: type, limit: rowCount*6)
-        switch type {
-        case .workbook:
-            self.fetchWorkbooks(rowCount: rowCount, order: order)
-        case .workbookGroup:
-            self.fetchWorkbookGroups(rowCount: rowCount, order: order)
-        }
+        self.fetchAnotherCount(limit: rowCount*6)
+        self.fetchWorkbooks(rowCount: rowCount, order: order)
     }
     
     func fetchWorkbooks(rowCount: Int, order: DropdownOrderButton.SearchOrder) {
@@ -111,12 +104,7 @@ extension SearchVM {
                     self?.isLastPage = true
                     return
                 }
-                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
-                if NetworkURL.forTest {
-                    self?.filterWorkbooks(with: workbooks)
-                } else {
-                    self?.searchResultWorkbooks += workbooks
-                }
+                self?.searchResultWorkbooks += workbooks
             case .DECODEERROR:
                 self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
             default:
@@ -125,50 +113,7 @@ extension SearchVM {
         }
     }
     
-    func fetchWorkbookGroups(rowCount: Int, order: DropdownOrderButton.SearchOrder) {
-        guard self.isLastPage == false,
-              self.isPaging == false else { return }
-        self.isPaging = true
-        self.pageCount += 1
-        
-        // MARK: 페이지네이션 없이 25개를 요청
-        self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: self.pageCount, limit: rowCount*6, order: order.param) { [weak self] status, workbookGroups in
-            switch status {
-            case .SUCCESS:
-                self?.workbookGroupsCount = workbookGroups?.count ?? 0
-                guard let workbookGroups = workbookGroups?.workbookGroups else {
-                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                
-                if workbookGroups.isEmpty {
-                    self?.isLastPage = true
-                    return
-                }
-                // MARK: test용 서버에서 filter 여부에 따라 searchResults 로직 분기처리
-                if NetworkURL.forTest {
-                    self?.filterWorkbookGroups(with: workbookGroups)
-                } else {
-                    self?.searchResultWorkbookGroups += workbookGroups
-                }
-            case .DECODEERROR:
-                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
-            default:
-                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-            }
-        }
-    }
-    
-    func fetchAnotherCount(currentType: SearchVC.SearchType, limit: Int) {
-        if currentType == .workbook {
-            self.networkUsecase.searchWorkbookGroup(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil) { [weak self] status, workbookGroupInfo in
-                guard status == .SUCCESS else {
-                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                self?.workbookGroupsCount = workbookGroupInfo?.count ?? 0
-            }
-        } else {
+    func fetchAnotherCount(limit: Int) {
             self.networkUsecase.getPreviews(tags: self.selectedTags, keyword: self.keyword, page: 1, limit: limit, order: nil, cid: nil) { [weak self] status, workbookInfo in
                 guard status == .SUCCESS else {
                     self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
@@ -176,14 +121,12 @@ extension SearchVM {
                 }
                 self?.workbooksCount = workbookInfo?.count ?? 0
             }
-        }
     }
     
     func resetSearchInfos() {
         self.pageCount = 0
         self.keyword = ""
         self.searchResultWorkbooks = []
-        self.searchResultWorkbookGroups = []
         self.isLastPage = false
         self.isPaging = false
     }
@@ -197,16 +140,5 @@ extension SearchVM {
         NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
             self?.offlineStatus = true
         }
-    }
-}
-
-// MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
-extension SearchVM {
-    private func filterWorkbooks(with previews: [WorkbookPreviewOfDB]) {
-        self.searchResultWorkbooks += previews
-    }
-    
-    private func filterWorkbookGroups(with previews: [WorkbookGroupPreviewOfDB]) {
-        self.searchResultWorkbookGroups += previews
     }
 }

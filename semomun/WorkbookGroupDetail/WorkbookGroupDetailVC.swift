@@ -338,19 +338,6 @@ extension WorkbookGroupDetailVC {
         let waitingChargeVC = storyboard.instantiateViewController(withIdentifier: WaitingChargeVC.identifier)
         self.navigationController?.pushViewController(waitingChargeVC, animated: true)
     }
-    
-    private func showStudyVC(section: PracticeTestSection_Core, workbook: Preview_Core) {
-        guard let studyVC = UIStoryboard(name: StudyVC.storyboardName, bundle: nil).instantiateViewController(withIdentifier: StudyVC.identifier) as? StudyVC else { return }
-        guard let workbookGroup = self.viewModel?.workbookGroupCore else { return }
-        
-        let networkUsecase = NetworkUsecase(network: Network())
-        let manager = PracticeTestManager(section: section, workbookGroup: workbookGroup, workbook: workbook, networkUsecase: networkUsecase)
-        
-        studyVC.modalPresentationStyle = .fullScreen
-        studyVC.configureManager(manager)
-        
-        self.present(studyVC, animated: true, completion: nil)
-    }
 }
 
 // MARK: Loader
@@ -376,16 +363,5 @@ extension WorkbookGroupDetailVC {
 extension WorkbookGroupDetailVC: TestSubjectCellObserber {
     func showAlertDownloadSectionFail() {
         self.showAlertWithOK(title: "다운로드 실패", text: "네트워크 연결을 확인 후 다시 시도하세요")
-    }
-    
-    func showPracticeTestSection(workbook: Preview_Core) {
-        guard workbook.sids.count == 1,
-              let sid = workbook.sids.first,
-              let practiceSection = CoreUsecase.fetchPracticeSection(sid: sid) else {
-            self.showAlertWithOK(title: "문제집 정보 에러", text: "")
-            return
-        }
-        self.viewModel?.updateRecentDate(workbook: workbook)
-        self.showStudyVC(section: practiceSection, workbook: workbook)
     }
 }

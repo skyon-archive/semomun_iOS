@@ -415,9 +415,4 @@ extension BookshelfVC: BookshelfCellDelegate {
         guard let workbook = CoreUsecase.fetchPreview(wid: wid) else { return }
         self.showWorkbookDetailVC(workbookCore: workbook)
     }
-    
-    func showWorkbookGroupDetailVC(wgid: Int) {
-        guard let workbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: wgid) else { return }
-        self.showWorkbookGroupDetailVC(workbookGroupCore: workbookGroup)
-    }
 }

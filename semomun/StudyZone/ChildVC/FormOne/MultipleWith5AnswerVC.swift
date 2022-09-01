@@ -44,7 +44,7 @@ extension MultipleWith5AnswerVC {
         let problem = self.viewModel?.problems[indexPath.item]
         
         cell.delegate = self
-        cell.prepareForReuse(contentImage, problem, self.toolPicker, self.viewModel?.mode)
+        cell.prepareForReuse(contentImage, problem, self.toolPicker)
         cell.showTopShadow = indexPath.item != 0
         
         return cell

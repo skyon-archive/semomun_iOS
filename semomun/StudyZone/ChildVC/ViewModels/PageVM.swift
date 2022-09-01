@@ -12,7 +12,6 @@ class PageVM {
     /* public */
     weak var delegate: PageDelegate?
     private(set) var problems: [Problem_Core]
-    private(set) var mode: StudyVC.Mode = .default
     /* private */
     private var beforePid: Int64?
     private var startTime: Date? // 페이지 진입시점 시각 및 input 마지막 시각 (term 계산 기준값)
@@ -37,10 +36,9 @@ class PageVM {
         return pageData.pageCore.drawingWidth
     }
     
-    init(delegate: PageDelegate, pageData: PageData, mode: StudyVC.Mode?) {
+    init(delegate: PageDelegate, pageData: PageData) {
         self.delegate = delegate
         self.problems = pageData.problems
-        self.mode = mode ?? .default
         self.pageData = pageData
         
         guard problems.isEmpty == false else {
