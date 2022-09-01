@@ -1111,7 +1111,11 @@
 		8716E926279A5D5D00B33A5E /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				87FEBB3327EB070B00B106F2 /* iPad */,
+				871B6E56276EE48D008CEEBA /* Main.storyboard */,
+				8716E927279A5D8400B33A5E /* Login.storyboard */,
+				8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */,
+				8716E92B279A5D9E00B33A5E /* Profile.storyboard */,
+				8716E92D279A5DAA00B33A5E /* Study.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1736,18 +1740,6 @@
 				878766CB27AED290003B975E /* View */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		87FEBB3327EB070B00B106F2 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				871B6E56276EE48D008CEEBA /* Main.storyboard */,
-				8716E927279A5D8400B33A5E /* Login.storyboard */,
-				8716E929279A5D9200B33A5E /* HomeSearchBookshelf.storyboard */,
-				8716E92B279A5D9E00B33A5E /* Profile.storyboard */,
-				8716E92D279A5DAA00B33A5E /* Study.storyboard */,
-			);
-			path = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
