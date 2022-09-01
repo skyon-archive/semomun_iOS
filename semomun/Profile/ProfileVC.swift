@@ -38,7 +38,6 @@ final class ProfileVC: UIViewController {
         super.viewWillAppear(animated)
         if UserDefaultsManager.isLogined == true {
             self.updateNickname()
-            self.updateRemainingPay()
         }
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -46,14 +45,6 @@ final class ProfileVC: UIViewController {
 
 extension ProfileVC {
     private func configureObserver() {
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.connected, object: nil, queue: .current) { [weak self] _ in
-            guard UserDefaultsManager.isLogined == true else { return }
-            self?.updateRemainingPay()
-        }
-        NotificationCenter.default.addObserver(forName: NetworkStatusManager.Notifications.disconnected, object: nil, queue: .current) { [weak self] _ in
-            guard UserDefaultsManager.isLogined == true else { return }
-            self?.loginProfileView.payStatusView.updateRemainingPay(to: nil)
-        }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.showLoginProfileView()
         }
@@ -68,28 +59,6 @@ extension ProfileVC {
         }
     }
     
-    private func updateRemainingPay() {
-        guard let userInfo = CoreUsecase.fetchUserInfo() else {
-            assertionFailure()
-            self.loginProfileView.payStatusView.updateRemainingPay(to: nil)
-            return
-        }
-        self.networkUsecase?.getRemainingPay { status, credit in
-            guard status == .SUCCESS else {
-                if status == .DECODEERROR {
-                    self.showAlertWithOK(title: "수신 불가", text: "최신버전으로 업데이트 후 다시 시도하시기 바랍니다.")
-                }
-                return
-            }
-            if let credit = credit {
-                self.loginProfileView.payStatusView.updateRemainingPay(to: credit)
-                userInfo.updateCredit(credit)
-            } else {
-                self.loginProfileView.payStatusView.updateRemainingPay(to: nil)
-            }
-        }
-    }
-    
     private func showLoginProfileView() {
         self.logoutProfileView.removeFromSuperview()
         self.view.addSubview(self.loginProfileView)
@@ -100,7 +69,6 @@ extension ProfileVC {
             self.loginProfileView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
         self.updateNickname()
-        self.updateRemainingPay()
     }
     
     private func showLogoutProfileView() {
