@@ -87,19 +87,18 @@ final class LoginSelectVC: UIViewController {
 extension LoginSelectVC {
     private func checkReviewButton() {
         let version = String.currentVersion
-        let url = NetworkURL.base + "/status/review"
+        let url = "https://emunjaezip.com/semomun"
         let param = ["version": version]
 
         Network().request(url: url, param: param, method: .get, tokenRequired: false) { [weak self] result in
-            guard let data = result.data,
-                  let status = try? JSONDecoder().decode(BooleanResult.self, from: data) else {
+            guard let data = result.data else {
                 self?.showAlertWithOK(title: "Network Error", text: "Please check internet connection, id and password :)")
                 return
             }
-            
-            if status.result == true {
+            if String(data: data, encoding: .utf8) == "true" {
                 self?.configureReviewButton()
             }
+            
         }
     }
     

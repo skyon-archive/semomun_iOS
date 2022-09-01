@@ -86,6 +86,7 @@ struct SyncUsecase {
                     completion(.failure(.networkFail))
                     return
                 }
+                
                 self.deleteAllCoreDataIfNewUIDSync(uid: userInfo.uid)
                 self.saveUserInfoToCoreData(userInfo)
                 self.syncTagOfDB { result in
