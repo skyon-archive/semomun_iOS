@@ -13,7 +13,6 @@ final class HomeVM {
     let networkUsecase: NetworkUsecase
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []
-    @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
     @Published private(set) var recentEntered: [BookshelfInfo] = []
     @Published private(set) var tags: [TagOfDB] = []
     @Published private(set) var warning: (title: String, text: String)?
@@ -155,7 +154,6 @@ extension HomeVM {
     private func fetchNonLogined() {
         self.fetchBestSellers()
         self.fetchTags()
-        self.fetchPracticeTests()
         self.fetchPopup()
         self.fetchPopularTagContents()
     }
@@ -241,21 +239,6 @@ extension HomeVM {
                 self?.recentEntered = Array(infos.prefix(sectionSize))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
-            }
-        }
-    }
-    
-    private func fetchPracticeTests() {
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: nil, limit: self.cellPerSection, order: nil) { [weak self] status, searchWorkbookGroups in
-            switch status {
-            case .SUCCESS:
-                guard let searchWorkbookGroups = searchWorkbookGroups?.workbookGroups else {
-                    self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                    return
-                }
-                self?.workbookGroups = searchWorkbookGroups
-            default:
-                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
             }
         }
     }

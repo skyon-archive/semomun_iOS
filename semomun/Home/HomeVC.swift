@@ -16,7 +16,6 @@ final class HomeVC: UIViewController {
         case bestseller
         case recent
         case tag
-        case workbookGroup
     }
     private var fixedSectionViews: [FixedSectionType: HomeSectionView] = [:]
     /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열
@@ -174,7 +173,6 @@ extension HomeVC {
                 case .bestseller: sectionTitle = "베스트셀러"
                 case .recent: sectionTitle = "최근에 푼 문제집"
                 case .tag: sectionTitle = "나의 태그"
-                case .workbookGroup: sectionTitle = "실전 모의고사"
             }
             
             sectionView.configureContent(
@@ -240,13 +238,6 @@ extension HomeVC {
             )
             let vc = HomeUserTagDetailVC(viewModel: vm, title: sectionTitle)
             self.navigationController?.pushViewController(vc, animated: true)
-        case .workbookGroup:
-            let vm = HomeDetailVM<WorkbookGroupPreviewOfDB>(
-                networkUsecase: viewModel.networkUsecase,
-                cellDataFetcher: viewModel.fetchWorkbookGroups
-            )
-            let vc = HomeDetailVC<WorkbookGroupPreviewOfDB>(viewModel: vm, title: sectionTitle)
-            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -280,8 +271,6 @@ extension HomeVC: UICollectionViewDataSource {
                 return self.viewModel?.recentEntered.count ?? 0
             case .tag:
                 return self.viewModel?.workbooksWithTags.count ?? 0
-            case .workbookGroup:
-                return self.viewModel?.workbookGroups.count ?? 0
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
@@ -305,9 +294,6 @@ extension HomeVC: UICollectionViewDataSource {
             case .tag:
                 guard let preview = self.viewModel?.workbooksWithTags[indexPath.item] else { return cell }
                 cell.configure(with: preview, networkUsecase: networkUsecase)
-            case .workbookGroup:
-                guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return cell }
-                cell.configure(with: info, networkUsecase: networkUsecase)
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
@@ -333,9 +319,6 @@ extension HomeVC: UICollectionViewDelegate {
             case .recent:
                 guard let wid = self.viewModel?.recentEntered[indexPath.item].wid else { return }
                 self.searchWorkbook(wid: wid)
-            case .workbookGroup:
-                guard let info = self.viewModel?.workbookGroups[indexPath.item] else { return }
-                self.searchWorkbookGroup(info: info)
             }
         } else { // 인기 태그 섹션들
             let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
@@ -423,7 +406,6 @@ extension HomeVC {
         self.bindBestSellers()
         self.bindRecent()
         self.bindTags()
-        self.bindPracticeTests()
         self.bindPopularTagContent()
         
         self.bindOfflineStatus()
@@ -576,16 +558,6 @@ extension HomeVC {
                 } else {
                     self?.removeLoader()
                 }
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindPracticeTests() {
-        self.viewModel?.$workbookGroups
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] _ in
-                self?.fixedSectionViews[.workbookGroup]?.collectionView.reloadData()
             })
             .store(in: &self.cancellables)
     }
