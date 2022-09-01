@@ -270,15 +270,6 @@ extension StudyVC {
         self.present(selectProblemsVC, animated: true, completion: nil)
     }
     
-    private func showSolvedProblemsVC(practiceSection: PracticeTestSection_Core) {
-        let storyboard = UIStoryboard(name: ShowSolvedProblemsVC.storyboardName, bundle: nil)
-        guard let showSolvedProblemsVC = storyboard.instantiateViewController(withIdentifier: ShowSolvedProblemsVC.identifier) as? ShowSolvedProblemsVC else { return }
-        let viewModel = ShowSolvedProblemsVM(practiceSection: practiceSection)
-        showSolvedProblemsVC.configureViewModel(viewModel: viewModel)
-        
-        self.present(showSolvedProblemsVC, animated: true, completion: nil)
-    }
-    
     private func showResultViewController(section: Section_Core, sectionNum: Int, workbookTitle: String) {
         let storyboard = UIStoryboard(name: SectionResultVC.storyboardName, bundle: nil)
         guard let sectionResultVC = storyboard.instantiateViewController(withIdentifier: SectionResultVC.identifier) as? SectionResultVC else { return }

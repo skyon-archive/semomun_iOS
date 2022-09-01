@@ -67,14 +67,6 @@ extension Preview_Core {
     @NSManaged public var progressCount: Int64 // 책장 진도율값
     @NSManaged public var downloaded: Bool // 부활: WorkbookGroup 내에서 사용
     @NSManaged public var terminated: Bool // 부활: WorkbookGroup 진도율 계산에서 사용
-    /* practiceTest */
-    @NSManaged public var wgid: Int64 // NEW: 상위 group 정보값
-    @NSManaged public var cutoff: Data? // NEW: 등급컷
-    @NSManaged public var subject: String? // 부활: 같은 명이나, 다른 역할로 부활
-    @NSManaged public var area: String? // NEW: 영역
-    @NSManaged public var standardDeviation: Int64 // NEW: 표준 편차
-    @NSManaged public var averageScore: Int64 // NEW: 평균 점수
-    @NSManaged public var timelimit: Int64 // NEW: 제한시간
     
     @available(*, deprecated, message: "이전 버전의 CoreData")
     @NSManaged public var category: String? //Deprecated(1.1.3)
@@ -107,7 +99,7 @@ extension Preview_Core {
 public class Preview_Core: NSManagedObject{
     
     public override var description: String {
-        return "Preview(\(self.wid), \(optional: self.image), \(optional: self.title), \(self.sids), wgid: \(self.wgid)"
+        return "Preview(\(self.wid), \(optional: self.image), \(optional: self.title), \(self.sids)"
     }
     
     func setValues(workbook: WorkbookOfDB, info: BookshelfInfo) {

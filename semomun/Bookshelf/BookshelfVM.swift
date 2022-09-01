@@ -51,7 +51,6 @@ extension BookshelfVM {
             return
         }
         self.workbooksNotFiltered = workbooks.map { $0.cellInfo }
-        let filteredWorkbooks = workbooks.filter({ $0.wgid == 0 })
         
         if NetworkStatusManager.isConnectedToInternet() {
             NotificationCenter.default.post(name: .refreshBookshelf, object: nil) // HomeVM 에서 수신받아 reload 후 표시 연결
@@ -61,13 +60,13 @@ extension BookshelfVM {
         var beforeSubjectFiltered: [WorkbookCellInfo] = []
         switch self.currentWorkbooksOrder {
         case .recentPurchase:
-            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
         case .recentRead:
-            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
         case .titleDescending:
-            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
+            beforeSubjectFiltered = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
         case .titleAscending:
-            beforeSubjectFiltered = filteredWorkbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
+            beforeSubjectFiltered = workbooks.sorted(by: { self.areWorkbooksInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
         }
         
         if self.filteredSubject == .all {
@@ -132,25 +131,6 @@ extension BookshelfVM {
 
 // MARK: Private
 extension BookshelfVM {
-    /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate의 최신순으로 정렬
-    private func areWorkbookGroupsInDecreasingOrder<Value: Comparable>(_ path: KeyPath<WorkbookGroup_Core, Value?>, _ leftGroup: WorkbookGroup_Core, _ rightGroup: WorkbookGroup_Core) -> Bool {
-        switch (leftGroup[keyPath: path], rightGroup[keyPath: path]) {
-        case (let lhs?, let rhs?):
-            return lhs > rhs
-        case (_?, nil):
-            return true
-        case (nil, _?):
-            return false
-        default:
-            // 둘 다 값이 없는 경우 purchasedDate 사용
-            guard let leftDate = leftGroup.purchasedDate,
-                  let rightDate = rightGroup.purchasedDate else {
-                // 여기로 오는 경우가 있으려나,,?
-                return true
-            }
-            return leftDate > rightDate
-        }
-    }
     /// Optional인 값을 비교하여 내림차순이면 True를 반환. nil은 어떤 값보다도 우선순위가 낮음. 비교대상이 모두 nil이면 purchasedDate의 최신순으로 정렬
     private func areWorkbooksInDecreasingOrder<Value: Comparable>(_ path: KeyPath<Preview_Core, Value?>, _ leftWorkbook: Preview_Core, _ rightWorkbook: Preview_Core) -> Bool {
         switch (leftWorkbook[keyPath: path], rightWorkbook[keyPath: path]) {

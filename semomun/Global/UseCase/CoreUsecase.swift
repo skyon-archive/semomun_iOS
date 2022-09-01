@@ -97,74 +97,6 @@ struct CoreUsecase {
         }
     }
     
-    static func downloadPracticeSection(section: SectionOfDB, workbook: Preview_Core, loading: LoadingDelegate, completion: @escaping (PracticeTestSection_Core?) -> Void) {
-        let context = CoreDataManager.shared.context
-        let practiceTestSectionCore = PracticeTestSection_Core(context: context)
-        var pageCores: [Page_Core] = []
-        var problemCores: [Problem_Core] = []
-        
-        var pageUUIDs: [PageUUID] = []
-        var problemUUIDs: [ProblemUUID] = []
-        var problemIndex: Int = 0
-        
-        print("----------save start----------")
-        
-        section.pages.forEach { page in
-            let pageData = CoreUsecase.createPage(context: context, page: page, type: page.problems.last?.type ?? 5)
-            let pageCore = pageData.page
-            pageCores.append(pageCore)
-            pageUUIDs.append(pageData.result)
-            
-            page.problems.forEach { problem in
-                let problemData = CoreUsecase.createProblem(context: context, problem: problem, practiceTestSection: practiceTestSectionCore, page: pageCore, index: problemIndex)
-                let problemCore = problemData.problem
-                problemCores.append(problemCore)
-                problemUUIDs.append(problemData.result)
-                problemIndex += 1
-            }
-        }
-        
-        print("----------save end----------")
-        
-        let pageImageCount = pageUUIDs.filter({ $0.material != nil }).count // 지문이미지 수
-        let problemImageCount = problemUUIDs.reduce(0) { $0 + $1.imageCount } // 문제+해설 이미지 수
-        let loadingCount: Int = pageImageCount + problemImageCount
-        var currentCount: Int = 0
-        loading.setCount(to: loadingCount)
-        
-        let networkUsecase = NetworkUsecase(network: Network())
-        DispatchQueue.global().async {
-            for idx in 0..<problemCores.count {
-                let problemCore = problemCores[idx]
-                let problemUUID = problemUUIDs[idx]
-                
-                problemCore.fetchImages(uuids: problemUUID, networkUsecase: networkUsecase) {
-                    loading.oneProgressDone()
-                    currentCount += 1
-                    print("\(currentCount)/\(loadingCount)")
-                    
-                    if currentCount == loadingCount {
-                        Self.terminateDownload(section: section, practiceTestSection: practiceTestSectionCore, workbook: workbook, completion: completion)
-                    }
-                }
-            }
-            
-            for idx in 0..<pageCores.count {
-                let pageCore = pageCores[idx]
-                let pageUUID = pageUUIDs[idx]
-                pageCore.setMaterial(uuid: pageUUID, networkUsecase: networkUsecase) {
-                    loading.oneProgressDone()
-                    currentCount += 1
-                    print("\(currentCount)/\(loadingCount)")
-                    
-                    if currentCount == loadingCount {
-                        Self.terminateDownload(section: section, practiceTestSection: practiceTestSectionCore, workbook: workbook, completion: completion)
-                    }
-                }
-            }
-        }
-    }
-    
     static private func createPage(context: NSManagedObjectContext, page: PageOfDB, type: Int) -> (page: Page_Core, result: PageUUID) {
         let pageCore = Page_Core(context: context)
         let pageResult = pageCore.setValues(page: page, type: type)
@@ -179,27 +111,11 @@ struct CoreUsecase {
         return (problem: problemCore, result: problemResult)
     }
     
-    static private func createProblem(context: NSManagedObjectContext, problem: ProblemOfDB, practiceTestSection: PracticeTestSection_Core, page: Page_Core, index: Int) -> (problem: Problem_Core, result: ProblemUUID) {
-        let problemCore = Problem_Core(context: context)
-        let problemResult = problemCore.setValues(prob: problem, index: index)
-        problemCore.pageCore = page
-        problemCore.practiceSectionCore = practiceTestSection
-        return (problem: problemCore, result: problemResult)
-    }
-    
     static private func terminateDownload(section: Section_Core, header: SectionHeader_Core, completion: ((Section_Core?) -> Void)) {
         print("----------download end----------")
         section.setValues(header: header)
         CoreDataManager.saveCoreData()
         completion(section)
-    }
-    
-    static private func terminateDownload(section: SectionOfDB, practiceTestSection: PracticeTestSection_Core, workbook: Preview_Core, completion: ((PracticeTestSection_Core?) -> Void)) {
-        print("----------download end----------")
-        practiceTestSection.setValues(section: section, workbook: workbook)
-        workbook.setDownloadedSection()
-        CoreDataManager.saveCoreData()
-        completion(practiceTestSection)
     }
     
     static func fetchSectionHeader(sid: Int) -> SectionHeader_Core? {
@@ -221,27 +137,6 @@ struct CoreUsecase {
             return sectionHeaders
         } else {
             print("Error: fetch sectionHeaders")
-            return nil
-        }
-    }
-    
-    static func fetchWorkbookGroups() -> [WorkbookGroup_Core]? {
-        let fetchRequest: NSFetchRequest<WorkbookGroup_Core> = WorkbookGroup_Core.fetchRequest()
-        if let workbookGroups = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            return workbookGroups
-        } else {
-            print("Error: fetch workbookGroups")
-            return nil
-        }
-    }
-    
-    static func fetchWorkbookGroup(wgid: Int) -> WorkbookGroup_Core? {
-        let fetchRequest: NSFetchRequest<WorkbookGroup_Core> = WorkbookGroup_Core.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "wgid = %@", "\(wgid)")
-        if let workbookGroups = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            return workbookGroups.last
-        } else {
-            print("Error: fetch workbookGroup")
             return nil
         }
     }
@@ -293,19 +188,6 @@ struct CoreUsecase {
             return fetches.first
         } else {
             print("Error: fetch preview")
-            return nil
-        }
-    }
-    
-    static func fetchPracticeSection(sid: Int) -> PracticeTestSection_Core? {
-        let fetchRequest: NSFetchRequest<PracticeTestSection_Core> = PracticeTestSection_Core.fetchRequest()
-        let filter = NSPredicate(format: "sid = %@", "\(sid)")
-        fetchRequest.predicate = filter
-        
-        if let fetches = try? CoreDataManager.shared.context.fetch(fetchRequest) {
-            return fetches.last
-        } else {
-            print("Error: fetch section")
             return nil
         }
     }
@@ -376,10 +258,6 @@ struct CoreUsecase {
     }
     
     static func deleteAllCoreData() {
-        guard let allWorkbookGroups = CoreUsecase.fetchWorkbookGroups() else {
-            print("Error: fetch all workbookGroup")
-            return
-        }
         guard let allPreviews = CoreUsecase.fetchPreviews() else {
             print("Error: fetch all preview")
             return
@@ -388,10 +266,7 @@ struct CoreUsecase {
             print("Error: fetch userinfo")
             return
         }
-        
-        allWorkbookGroups.forEach { workbookGroup in
-            CoreUsecase.deleteWorkbookGroup(wgid: Int(workbookGroup.wgid))
-        }
+
         allPreviews.forEach { preview in
             CoreUsecase.deletePreview(wid: Int(preview.wid))
         }
@@ -399,16 +274,6 @@ struct CoreUsecase {
         CoreDataManager.shared.context.delete(userInfo)
         CoreDataManager.saveCoreData()
         print("CoreData delete complete")
-    }
-    
-    static func deleteWorkbookGroup(wgid: Int) {
-        guard let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: wgid) else {
-            print("Error: fetch workbookGroup")
-            return
-        }
-        
-        CoreDataManager.shared.context.delete(targetWorkbookGroup)
-        print("workbookGroup delete complete")
     }
     
     static func deletePreview(wid: Int) {
