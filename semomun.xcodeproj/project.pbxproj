@@ -312,8 +312,6 @@
 		E48BFD2C2891380B00C61295 /* SingleWith2AnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */; };
 		E48BFD2E28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2D28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift */; };
 		E48BFD3028913AAE00C61295 /* SingleWithLongTextAnswerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */; };
-		E4D5E45B2892572900DE8683 /* CategoryTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4D5E45A2892572900DE8683 /* CategoryTagCell.xib */; };
-		E4D5E45D289258B400DE8683 /* CategoryTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D5E45C289258B400DE8683 /* CategoryTagCell.swift */; };
 		E4DEF9282892697700AD32BD /* RemoveableCategoryTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4DEF9272892697700AD32BD /* RemoveableCategoryTagCell.xib */; };
 		E4DEF92A289269BD00AD32BD /* RemoveableCategoryTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEF929289269BD00AD32BD /* RemoveableCategoryTagCell.swift */; };
 		E4DEF92C28928E4700AD32BD /* CategoryOfDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEF92B28928E4700AD32BD /* CategoryOfDB.swift */; };
@@ -637,8 +635,6 @@
 		E48BFD2B2891380B00C61295 /* SingleWith2AnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWith2AnswerVM.swift; sourceTree = "<group>"; };
 		E48BFD2D28913A2A00C61295 /* SingleWithLongTextAnswerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithLongTextAnswerVC.swift; sourceTree = "<group>"; };
 		E48BFD2F28913AAE00C61295 /* SingleWithLongTextAnswerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleWithLongTextAnswerVM.swift; sourceTree = "<group>"; };
-		E4D5E45A2892572900DE8683 /* CategoryTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryTagCell.xib; sourceTree = "<group>"; };
-		E4D5E45C289258B400DE8683 /* CategoryTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTagCell.swift; sourceTree = "<group>"; };
 		E4DEF9272892697700AD32BD /* RemoveableCategoryTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveableCategoryTagCell.xib; sourceTree = "<group>"; };
 		E4DEF929289269BD00AD32BD /* RemoveableCategoryTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveableCategoryTagCell.swift; sourceTree = "<group>"; };
 		E4DEF92B28928E4700AD32BD /* CategoryOfDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryOfDB.swift; sourceTree = "<group>"; };
@@ -1420,8 +1416,6 @@
 			children = (
 				87A376A128741FAC00399DF2 /* TagCell.xib */,
 				87E5203E27A0ED9C001344F2 /* TagCell.swift */,
-				E4D5E45A2892572900DE8683 /* CategoryTagCell.xib */,
-				E4D5E45C289258B400DE8683 /* CategoryTagCell.swift */,
 				E4DEF9272892697700AD32BD /* RemoveableCategoryTagCell.xib */,
 				E4DEF929289269BD00AD32BD /* RemoveableCategoryTagCell.swift */,
 			);
@@ -1840,7 +1834,6 @@
 				870D29BE2861A7D5007E0C94 /* TestWorkbookGroupOfDBJSON.json in Resources */,
 				8716E928279A5D8400B33A5E /* Login.storyboard in Resources */,
 				8716E92E279A5DAA00B33A5E /* Study.storyboard in Resources */,
-				E4D5E45B2892572900DE8683 /* CategoryTagCell.xib in Resources */,
 				8720B036278E7A2200B8775F /* GoogleService-Info.plist in Resources */,
 				E4DEF9282892697700AD32BD /* RemoveableCategoryTagCell.xib in Resources */,
 			);
@@ -2087,7 +2080,6 @@
 				2562772E27A16C56006F9370 /* PayHistoryofDB.swift in Sources */,
 				877CCB0227B0C26B006F82C9 /* AnswerView.swift in Sources */,
 				255D637C27ABC057000991AB /* UserNoticeContentVC.swift in Sources */,
-				E4D5E45D289258B400DE8683 /* CategoryTagCell.swift in Sources */,
 				870BB568288E5F5600794295 /* StudyCircleAnswerButton.swift in Sources */,
 				872045F12878160A00BDCACB /* BookshelfWarningCell.swift in Sources */,
 				870BEB7F27AACED10020A6AC /* UINavigationController.swift in Sources */,

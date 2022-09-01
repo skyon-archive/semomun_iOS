@@ -216,8 +216,8 @@ extension WorkbookDetailVC {
     private func configureTags() {
         self.workbookTagsCollectionView.delegate = self
         self.workbookTagsCollectionView.dataSource = self
-        let cagetoryTagCellNib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
-        self.workbookTagsCollectionView.register(cagetoryTagCellNib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
+        let cagetoryTagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        self.workbookTagsCollectionView.register(cagetoryTagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
     }
     
     private func configureSections() {
@@ -512,9 +512,9 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return UICollectionViewCell() }
         guard let tag = self.viewModel?.tags[indexPath.item] else { return  cell }
-        cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
+        cell.configure(tag: tag.name)
         
         return cell
     }
@@ -523,9 +523,8 @@ extension WorkbookDetailVC: UICollectionViewDataSource {
 extension WorkbookDetailVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let tag = self.viewModel?.tags[indexPath.item] else { return CGSize(width: 100, height: 32) }
-        let categoryName = tag.category?.name ?? "카테고리 없음"
         let tagName = tag.name
-        return CategoryTagCell.size(categoryName: categoryName, tagName: tagName)
+        return TagCell.size(text: tagName)
     }
 }
 

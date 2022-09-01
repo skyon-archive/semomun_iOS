@@ -36,8 +36,8 @@ extension SearchTagsFromTextVC {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-        let categorytagCellNib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
-        self.collectionView.register(categorytagCellNib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
+        let categorytagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
+        self.collectionView.register(categorytagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
         
         let layout = TagsLayout()
         layout.minimumInteritemSpacing = 4
@@ -93,9 +93,9 @@ extension SearchTagsFromTextVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
         guard let tag = self.viewModel?.filteredTags[safe: indexPath.item] else { return cell }
-        cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
+        cell.configure(tag: tag.name)
         
         return cell
     }

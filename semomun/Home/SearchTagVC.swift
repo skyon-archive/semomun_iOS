@@ -81,13 +81,13 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableCategoryTagCell.identifier, for: indexPath) as? RemoveableCategoryTagCell else { return .init() }
             let categoryName = "카테고리"
             let tagName = self.viewModel.userTags[indexPath.item].name
-            cell.configure(category: categoryName, tag: tagName)
+            cell.configure(tag: tagName)
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
             let tagOfDB = self.viewModel.searchResult[indexPath.item]
             // MARK: 임시 카테고리 이름
-            cell.configure(category: "테스트", tag: tagOfDB.name)
+            cell.configure(tag: tagOfDB.name)
             return cell
         }
     }
@@ -107,11 +107,10 @@ extension SearchTagVC: UICollectionViewDelegateFlowLayout {
         if collectionView == self.searchTagView.searchTagCollectionView {
             let categoryName = "카테고리"
             let tagName = self.viewModel.userTags[indexPath.item].name
-            return RemoveableCategoryTagCell.size(categoryName: categoryName, tagName: tagName)
+            return RemoveableCategoryTagCell.size(tagName: tagName)
         } else {
             let tagOfDB = self.viewModel.searchResult[indexPath.item]
-            // MARK: 임시 카테고리 이름
-            return CategoryTagCell.size(categoryName: "테스트", tagName: tagOfDB.name)
+            return TagCell.size(text: tagOfDB.name)
         }
     }
 }

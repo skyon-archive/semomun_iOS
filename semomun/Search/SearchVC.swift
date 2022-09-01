@@ -135,9 +135,9 @@ extension SearchVC {
         self.mainCollectionView.collectionViewLayout = flowLayout
         self.mainCollectionView.configureDefaultDesign(topInset: 24)
         
-        let categoryTagCellNib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
+        let categoryTagCellNib = UINib(nibName: TagCell.identifier, bundle: nil)
         let removeableCategoryTagCellNib = UINib(nibName: RemoveableCategoryTagCell.identifier, bundle: nil)
-        self.tagsCollectionView.register(categoryTagCellNib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
+        self.tagsCollectionView.register(categoryTagCellNib, forCellWithReuseIdentifier: TagCell.identifier)
         self.tagsCollectionView.register(removeableCategoryTagCellNib, forCellWithReuseIdentifier: RemoveableCategoryTagCell.identifier)
         self.mainCollectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.identifier)
         self.mainCollectionView.register(SearchWarningCell.self, forCellWithReuseIdentifier: SearchWarningCell.identifier)
@@ -359,14 +359,14 @@ extension SearchVC: UICollectionViewDataSource {
         /// tagsCollectionView
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryTagCell.identifier, for: indexPath) as? CategoryTagCell else { return .init() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.identifier, for: indexPath) as? TagCell else { return .init() }
                 guard let tag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return cell }
-                cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
+                cell.configure(tag: tag.name)
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RemoveableCategoryTagCell.identifier, for: indexPath) as? RemoveableCategoryTagCell else { return .init() }
                 guard let tag = self.viewModel?.selectedTags[safe: indexPath.item] else { return cell }
-                cell.configure(category: tag.category?.name ?? "카테고리 없음", tag: tag.name)
+                cell.configure(tag: tag.name)
                 return cell
             }
         }
@@ -401,10 +401,10 @@ extension SearchVC: UICollectionViewDelegateFlowLayout {
         guard collectionView == self.mainCollectionView else {
             if self.status == .default {
                 guard let tag = self.viewModel?.favoriteTags[safe: indexPath.item] else { return CGSize(width: 100, height: 32) }
-                return CategoryTagCell.size(categoryName: tag.category?.name ?? "카테고리 없음", tagName: tag.name)
+                return TagCell.size(text: tag.name)
             } else {
                 guard let tag = self.viewModel?.selectedTags[safe: indexPath.item] else { return CGSize(width: 100, height: 32) }
-                return RemoveableCategoryTagCell.size(categoryName: tag.category?.name ?? "카테고리 없음", tagName: tag.name)
+                return RemoveableCategoryTagCell.size(tagName: tag.name)
             }
         }
         // warningCell 의 cell 반환

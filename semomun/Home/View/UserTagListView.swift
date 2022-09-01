@@ -53,8 +53,7 @@ final class UserTagListView: UIView {
             view.removeFromSuperview()
         }
         tags.forEach { tag in
-            // MARK: 임시 카테고리 이름
-            let tagView = TagView(tagName: tag.name, categoryName: "테스트")
+            let tagView = TagView(tagName: tag.name)
             self.stackView.addArrangedSubview(tagView)
         }
     }
@@ -96,7 +95,7 @@ extension UserTagListView {
 }
 
 final class TagView: UIButton {
-    convenience init(tagName: String, categoryName: String? = nil) {
+    convenience init(tagName: String) {
         self.init(type: .custom)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel?.font = .heading5
@@ -108,7 +107,7 @@ final class TagView: UIButton {
         self.layer.masksToBounds = true
         self.layer.cornerCurve = .continuous
         
-        let text = self.makeAttributedText(tagName: tagName, categoryName: categoryName)
+        let text = self.makeAttributedText(tagName: tagName)
         self.setAttributedTitle(text, for: .normal)
         
         // 16은 텍스트 양쪽에서 셀 가장자리까지의 거리
@@ -120,18 +119,8 @@ final class TagView: UIButton {
         ])
     }
     
-    private func makeAttributedText(tagName: String, categoryName: String?) -> NSAttributedString {
+    private func makeAttributedText(tagName: String) -> NSAttributedString {
         let text = NSMutableAttributedString()
-        if let categoryName = categoryName {
-            text.append(NSMutableAttributedString(string: categoryName, attributes:[
-                NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.darkGray),
-                NSAttributedString.Key.font: UIFont.heading5
-            ]))
-            text.append(NSMutableAttributedString(string: " / ", attributes:[
-                NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.lightGray),
-                NSAttributedString.Key.font: UIFont.heading5
-            ]))
-        }
         text.append(NSMutableAttributedString(string: tagName, attributes:[
             NSAttributedString.Key.foregroundColor: UIColor.getSemomunColor(.black),
             NSAttributedString.Key.font: UIFont.heading5

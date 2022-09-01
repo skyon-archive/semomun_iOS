@@ -40,8 +40,8 @@ class SearchTagView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalToConstant: 236).isActive = true
         
-        let nib = UINib(nibName: CategoryTagCell.identifier, bundle: nil)
-        view.register(nib, forCellWithReuseIdentifier: CategoryTagCell.identifier)
+        let nib = UINib(nibName: TagCell.identifier, bundle: nil)
+        view.register(nib, forCellWithReuseIdentifier: TagCell.identifier)
         
         return view
     }()

@@ -24,25 +24,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="T6J-co-lhQ">
-                        <rect key="frame" x="16" y="7.5" width="84.5" height="17"/>
+                        <rect key="frame" x="16" y="7.5" width="93" height="17"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Arw-If-HKI">
-                                <rect key="frame" x="0.0" y="0.0" width="35.5" height="17"/>
-                                <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                                <color key="textColor" name="darkGray"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tRt-Rn-oN0">
-                                <rect key="frame" x="39.5" y="0.0" width="5.5" height="17"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="5.5" id="b3i-hu-yFH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
-                                <color key="textColor" name="lightGray"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiG-KN-NME">
-                                <rect key="frame" x="49" y="0.0" width="35.5" height="17"/>
+                                <rect key="frame" x="0.0" y="0.0" width="93" height="17"/>
                                 <fontDescription key="fontDescription" name="PretendardVariable-SemiBold" family="Pretendard Variable" pointSize="14"/>
                                 <color key="textColor" name="black"/>
                                 <nil key="highlightedColor"/>
@@ -63,6 +48,7 @@
                     <constraint firstItem="T6J-co-lhQ" firstAttribute="leading" secondItem="fzl-iN-K7c" secondAttribute="leading" constant="16" id="KkR-Ah-9Bf"/>
                     <constraint firstItem="T6J-co-lhQ" firstAttribute="centerY" secondItem="fzl-iN-K7c" secondAttribute="centerY" id="VPW-uO-tTH"/>
                     <constraint firstItem="p8w-fC-UN4" firstAttribute="centerY" secondItem="fzl-iN-K7c" secondAttribute="centerY" id="vo4-bG-ifE"/>
+                    <constraint firstItem="p8w-fC-UN4" firstAttribute="leading" secondItem="hiG-KN-NME" secondAttribute="trailing" constant="4" id="ypC-Yv-Zdg"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>
                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -78,7 +64,6 @@
             </collectionViewCellContentView>
             <size key="customSize" width="145" height="32"/>
             <connections>
-                <outlet property="categoryNameLabel" destination="Arw-If-HKI" id="CNA-ZO-MiW"/>
                 <outlet property="tagNameLabel" destination="hiG-KN-NME" id="2tq-FP-8Yz"/>
                 <outlet property="xIcon" destination="p8w-fC-UN4" id="563-b4-QEf"/>
             </connections>
@@ -92,12 +77,6 @@
         </namedColor>
         <namedColor name="border">
             <color red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="darkGray">
-            <color red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="lightGray">
-            <color red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="white">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
