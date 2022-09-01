@@ -657,26 +657,6 @@ extension NetworkUsecase: LoginSignupPostable {
     }
 }
 
-extension NetworkUsecase: BannerFetchable {
-    func getBanners(completion: @escaping (NetworkStatus, [Banner]) -> Void) {
-        self.network.request(url: NetworkURL.banners, method: .get, tokenRequired: false) { result in
-            guard let statusCode = result.statusCode,
-                  let data = result.data else {
-                completion(.FAIL, [])
-                return
-            }
-            
-            guard let banners = self.decodeRequested([Banner].self, from: data) else {
-                completion(.DECODEERROR, [])
-                return
-            }
-            
-//            completion(NetworkStatus(statusCode: statusCode), banners)
-            completion(.SUCCESS, Array(repeating: .init(image: .init(string: "https://www.apple.com/v/iphone-13/g/images/overview/hero/hero_1_static__feiuc1zaeiaa_large_2x.jpg")!, url: .init(string: "https://www.apple.com/v/iphone-13/g/images/overview/hero/hero_1_static__feiuc1zaeiaa_large_2x.jpg")!), count: 10))
-        }
-    }
-}
-
 extension NetworkUsecase: PopupFetchable {
     func getNoticePopup(completion: @escaping (NetworkStatus, URL?) -> Void) {
         self.network.request(url: NetworkURL.popup, method: .get, tokenRequired: false) { result in

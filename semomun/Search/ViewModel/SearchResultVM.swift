@@ -111,18 +111,10 @@ final class SearchResultVM {
 // MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
 extension SearchResultVM {
     private func filterWorkbookSearchResults(with previews: [WorkbookPreviewOfDB]) {
-        guard let testCompany = NetworkURL.testCompany else {
-            self.workbookSearchResults += previews
-            return
-        }
-        self.workbookSearchResults += previews.filter( { $0.publishCompany == testCompany })
+        self.workbookSearchResults += previews
     }
     
     private func filterWorkbookGroupSearchResults(with previews: [WorkbookGroupPreviewOfDB]) {
-        guard NetworkURL.testCompany != nil else {
-            self.workbookGroupSearchResults += previews
-            return
-        }
-        self.workbookGroupSearchResults = []
+        self.workbookGroupSearchResults += previews
     }
 }

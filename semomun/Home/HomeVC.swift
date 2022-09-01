@@ -58,18 +58,6 @@ final class HomeVC: UIViewController {
         
         return roundedBackground
     }()
-    private let bannerAdCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(HomeAdCell.self, forCellWithReuseIdentifier: HomeAdCell.identifier)
-        view.showsHorizontalScrollIndicator = false
-        view.contentInset = .init(top: 0, left: UICollectionView.gridPadding, bottom: 0, right: 0)
-        
-        return view
-    }()
     private var viewModel: HomeVM?
     private var cancellables: Set<AnyCancellable> = []
     
@@ -80,11 +68,9 @@ final class HomeVC: UIViewController {
         self.configureHomeHeaderViewLayout()
         self.configureScrollViewLayout()
         self.configureScrollViewBackgroundLayout()
-        self.configureBannerAdLayout()
         self.configureStackViewLayout()
         
         self.configureViewModel()
-        self.configureBannerAd()
         self.configureStackViewContent()
         self.configureAddObserver()
         
@@ -151,22 +137,11 @@ extension HomeVC {
         ])
     }
     
-    private func configureBannerAdLayout() {
-        self.roundedBackground.addSubview(self.bannerAdCollectionView)
-        
-        NSLayoutConstraint.activate([
-            self.bannerAdCollectionView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: UICollectionView.gridPadding),
-            self.bannerAdCollectionView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor, constant: 0),
-            self.bannerAdCollectionView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
-            self.bannerAdCollectionView.heightAnchor.constraint(equalToConstant: 64)
-        ])
-    }
-    
     private func configureStackViewLayout() {
         self.roundedBackground.addSubview(self.stackView)
         
         NSLayoutConstraint.activate([
-            self.stackView.topAnchor.constraint(equalTo: self.bannerAdCollectionView.bottomAnchor, constant: 40),
+            self.stackView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
             // configureScrollViewBackgroundLayout에서 설정한 여백 값만큼 아래 여백을 설정
             self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -UICollectionView.gridPadding-500),
@@ -277,11 +252,6 @@ extension HomeVC {
 }
 
 extension HomeVC {
-    private func configureBannerAd() {
-        self.bannerAdCollectionView.delegate = self
-        self.bannerAdCollectionView.dataSource = self
-    }
-    
     private func configureViewModel() {
         let networkUsecase = NetworkUsecase(network: Network())
         self.viewModel = HomeVM(networkUsecase: networkUsecase)
@@ -302,10 +272,6 @@ extension HomeVC {
 
 extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard collectionView != self.bannerAdCollectionView else {
-            return self.viewModel?.banners.count ?? 0
-        }
-        
         if let sectionType = FixedSectionType(rawValue: collectionView.tag) { // 고정 섹션
             switch sectionType {
             case .bestseller:
@@ -325,14 +291,6 @@ extension HomeVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // 광고 배너
-        guard collectionView != self.bannerAdCollectionView else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeAdCell.identifier, for: indexPath) as? HomeAdCell else { return .init() }
-            guard let banner = self.viewModel?.banners[safe: indexPath.item] else { return cell }
-            cell.configureContent(imageURL: banner.image, url: banner.url)
-            return cell
-        }
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeBookcoverCell.identifier, for: indexPath) as? HomeBookcoverCell else { return .init() }
         guard let networkUsecase = self.viewModel?.networkUsecase else { return cell }
         
@@ -364,9 +322,6 @@ extension HomeVC: UICollectionViewDataSource {
 
 extension HomeVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 광고 배너
-        guard collectionView != self.bannerAdCollectionView else { return }
-        
         if let sectionType = FixedSectionType(rawValue: collectionView.tag) { // 고정 섹션
             switch sectionType {
             case .bestseller:
@@ -418,12 +373,7 @@ extension HomeVC {
 
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.bannerAdCollectionView {
-            // BookcoverCell 두개 크기
-            return .init((UICollectionView.bookcoverCellSize.width*2)+UICollectionView.gutterWidth, 64)
-        } else {
             return UICollectionView.bookcoverCellSize
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -470,7 +420,6 @@ extension HomeVC {
 // MARK: - Binding
 extension HomeVC {
     private func bindAll() {
-        self.bindAds()
         self.bindBestSellers()
         self.bindRecent()
         self.bindTags()
@@ -484,16 +433,6 @@ extension HomeVC {
         self.bindPopup()
         self.bindMigrationLoading()
         self.bindWorkbookDTO()
-    }
-    
-    private func bindAds() {
-        self.viewModel?.$banners
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] banners in
-                self?.bannerAdCollectionView.reloadData()
-            })
-            .store(in: &self.cancellables)
     }
     
     private func bindTags() {
@@ -664,8 +603,6 @@ extension HomeVC {
                 
                 sectionView.configureTitle(to: categoryContent.category.name)
                 sectionView.collectionView.reloadData()
-                
-                guard let viewModel = self?.viewModel else { return }
                 
                 sectionView.configureSeeAllAction { [weak self] in
                     let networkUsecase = NetworkUsecase(network: Network())

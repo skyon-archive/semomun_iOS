@@ -11,7 +11,6 @@ import Combine
 final class HomeVM {
     /* public */
     let networkUsecase: NetworkUsecase
-    @Published private(set) var banners: [Banner] = []
     @Published private(set) var bestSellers: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbooksWithTags: [WorkbookPreviewOfDB] = []
     @Published private(set) var workbookGroups: [WorkbookGroupPreviewOfDB] = [] // 2.1: 실전 모의고사
@@ -154,7 +153,6 @@ extension HomeVM {
     }
     
     private func fetchNonLogined() {
-        self.fetchAds()
         self.fetchBestSellers()
         self.fetchTags()
         self.fetchPracticeTests()
@@ -175,19 +173,6 @@ extension HomeVM {
         }
         
         self.fetchWorkbooksWithTags()
-    }
-    
-    private func fetchAds() {
-        self.networkUsecase.getBanners { [weak self] status, banners in
-            switch status {
-            case .SUCCESS:
-                self?.banners = banners
-            case .DECODEERROR:
-                self?.warning = ("올바르지 않는 형식", "최신 버전으로 업데이트 해주세요")
-            default:
-                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-            }
-        }
     }
     
     private func fetchBestSellers() {
@@ -306,10 +291,7 @@ extension HomeVM {
 // MARK: test 서버에서 출판사 제공용일 경우 filter 후 표시
 extension HomeVM {
     private func filteredPreviews(with previews: [WorkbookPreviewOfDB]) -> [WorkbookPreviewOfDB] {
-        guard let testCompany = NetworkURL.testCompany else {
-            return previews
-        }
-        return previews.filter( { $0.publishCompany == testCompany })
+        return previews
     }
 }
 
@@ -366,7 +348,7 @@ extension HomeVM {
                 completion(nil)
                 return
             }
-
+            
             completion(searchWorkbookGroups)
         }
     }

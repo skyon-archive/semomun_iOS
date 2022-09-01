@@ -9,14 +9,7 @@ import Foundation
 
 enum NetworkURL {
     // MARK: 테스트 서버일 경우 true 값으로 사용
-    static let forTest: Bool = true
-    // MARK: 출판사 제공용 테스트일 경우 testCompany 명 수정, 사내용일 경우 nil값 설정
-    static let testCompany: String? = nil
-    
-    enum TestPublishCompany: String {
-        case donga = "동아출판"
-        case gaenyeomwonri = "개념원리"
-    }
+    static let forTest: Bool = false
     
     enum scale: String {
         case small = "/64x64/"
@@ -71,7 +64,7 @@ enum NetworkURL {
     }
     
     static let appstore: String = "itms-apps://itunes.apple.com/app/id1601145709"
-    static let base: String = Self.forTest ? "https://dev.api.semomun.com" : "https://api.semomun.com"
+    static let base: String = "https://api.semomun.com"
     static let versionCheckURL: String = "https://api.semomun.com/"
     static let workbooks: String = base + "/workbooks/"
     static let workbookGroups: String = base + "/workbookgroups"
