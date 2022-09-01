@@ -18,10 +18,6 @@ public class WorkbookGroup_Core: NSManagedObject {
         return NSFetchRequest<WorkbookGroup_Core>(entityName: "WorkbookGroup_Core")
     }
     
-    var info: WorkbookGroupInfo {
-        return WorkbookGroupInfo(wgid: Int(self.wgid), title: self.title ?? "")
-    }
-    
     enum Attribute: String {
         case wgid
         case productID
@@ -46,18 +42,6 @@ public class WorkbookGroup_Core: NSManagedObject {
     @NSManaged public var wids: [Int]
     @NSManaged public var progressCount: Int64 // 진도율 계산을 위한 푼 workbook 수
     
-    func setValues(workbookGroup: WorkbookGroupOfDB, purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
-        self.setValue(Int64(workbookGroup.wgid), forKey: Attribute.wgid.rawValue)
-        self.setValue(Int64(workbookGroup.productID ?? -1), forKey: Attribute.productID.rawValue)
-        self.setValue(workbookGroup.type, forKey: Attribute.type.rawValue)
-        self.setValue(workbookGroup.title, forKey: Attribute.title.rawValue)
-        self.setValue(workbookGroup.detail, forKey: Attribute.detail.rawValue)
-        self.setValue(purchasedInfo.purchasedDate, forKey: Attribute.purchasedDate.rawValue)
-        self.setValue(purchasedInfo.recentDate, forKey: Attribute.recentDate.rawValue)
-        self.setValue(purchasedInfo.wids, forKey: Attribute.wids.rawValue)
-        self.setValue(0, forKey: Attribute.progressCount.rawValue)
-    }
-    
     func fetchGroupcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
         networkUsecase?.getImageFromS3(uuid: uuid, type: .bookcover) { [weak self] status, data in
             guard status == .SUCCESS, let data = data else {
@@ -68,12 +52,6 @@ public class WorkbookGroup_Core: NSManagedObject {
             self?.setValue(data, forKey: Attribute.image.rawValue)
             completion()
         }
-    }
-    
-    func updateInfos(purchasedInfo: PurchasedWorkbookGroupInfoOfDB) {
-        self.setValue(purchasedInfo.purchasedDate, forKey: Attribute.purchasedDate.rawValue)
-        self.setValue(purchasedInfo.recentDate, forKey: Attribute.recentDate.rawValue)
-        self.setValue(purchasedInfo.wids, forKey: Attribute.wids.rawValue)
     }
     
     func updateProgress() {

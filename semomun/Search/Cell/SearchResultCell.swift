@@ -14,11 +14,7 @@ final class SearchResultCell: BookcoverCell {
         self.configureReuse(bookTitle: preview.title, publishCompany: preview.publishCompany)
         self.configureImage(uuid: preview.bookcover, networkUsecase: networkUsecase)
     }
-    
-    func configure(with groupInfo: WorkbookGroupPreviewOfDB, networkUsecase: S3ImageFetchable) {
-        self.configureReuse(bookTitle: groupInfo.title, publishCompany: "실전 모의고사")
-        self.configureImage(uuid: groupInfo.groupCover, networkUsecase: networkUsecase)
-    }
+
     // 로그인 상태에 구매내역을 통한 configure
     func configure(with info: BookshelfInfo, networkUsecase: (WorkbookSearchable & S3ImageFetchable)) {
         networkUsecase.getWorkbook(wid: info.wid) { workbookOfDB in

@@ -194,42 +194,6 @@ extension NetworkUsecase: WorkbookSearchable {
         }
     }
 }
-extension NetworkUsecase: WorkbookGroupSearchable {
-    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void) {
-        let tids = tags?.map(\.tid)
-        let param = WorkbookSearchParam(page: page, limit: limit, tids: tids, keyword: keyword, order: order, cid: nil)
-        
-        self.network.request(url: NetworkURL.workbookGroups, param: param, method: .get, tokenRequired: false) { result in
-            switch result.statusCode {
-            case 200:
-                guard let data = result.data,
-                      let searchWorkbookGroups: SearchWorkbookGroups = self.decodeRequested(SearchWorkbookGroups.self, from: data) else {
-                    completion(.DECODEERROR, nil)
-                    return
-                }
-                completion(.SUCCESS, searchWorkbookGroups)
-            default:
-                completion(.FAIL, nil)
-            }
-        }
-    }
-    
-    func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void) {
-        self.network.request(url: NetworkURL.workbookGroupDirectory(wgid), method: .get, tokenRequired: false) { result in
-            switch result.statusCode {
-            case 200:
-                guard let data = result.data,
-                      let workbookGroup: WorkbookGroupOfDB = self.decodeRequested(WorkbookGroupOfDB.self, from: data) else {
-                    completion(.DECODEERROR, nil)
-                    return
-                }
-                completion(.SUCCESS, workbookGroup)
-            default:
-                completion(.FAIL, nil)
-            }
-        }
-    }
-}
 
 // MARK: - Downloadable
 extension NetworkUsecase: SectionDownloadable {
@@ -431,23 +395,7 @@ extension NetworkUsecase: UserPurchaseable {
         }
     }
 }
-extension NetworkUsecase: UserWorkbookGroupsFetchable {
-    func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void) {
-        self.network.request(url: NetworkURL.purchasedWorkbookGroups, method: .get, tokenRequired: true) { result in
-            switch result.statusCode {
-            case 200:
-                guard let data = result.data,
-                      let purchasedWorkbookGroupsInfos = self.decodeRequested([PurchasedWorkbookGroupInfoOfDB].self, from: data) else {
-                    completion(.DECODEERROR, [])
-                    return
-                }
-                completion(.SUCCESS, purchasedWorkbookGroupsInfos)
-            default:
-                completion(.FAIL, [])
-            }
-        }
-    }
-}
+
 extension NetworkUsecase: UserWorkbooksFetchable {
     func getUserBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void) {
         self.network.request(url: NetworkURL.purchasedWorkbooks, method: .get, tokenRequired: true) { result in

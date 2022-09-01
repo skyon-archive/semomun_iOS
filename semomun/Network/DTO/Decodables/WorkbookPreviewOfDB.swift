@@ -42,8 +42,4 @@ struct Cutoff: Codable {
     let standardScore: Int
 }
 
-extension WorkbookPreviewOfDB: HomeBookcoverCellInfo {
-    var workbookDetailInfo: (wid: Int?, workbookGroupPreviewOfDB: WorkbookGroupPreviewOfDB?) {
-        return (self.wid, nil)
-    }
-}
+extension WorkbookPreviewOfDB: HomeBookcoverCellInfo {}

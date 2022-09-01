@@ -11,6 +11,5 @@ protocol HomeBookcoverCellInfo {
     var title: String { get }
     var publishCompany: String { get }
     var bookcover: UUID { get }
-    
-    var workbookDetailInfo: (wid: Int?, workbookGroupPreviewOfDB: WorkbookGroupPreviewOfDB?) { get }
+    var wid: Int { get }
 }

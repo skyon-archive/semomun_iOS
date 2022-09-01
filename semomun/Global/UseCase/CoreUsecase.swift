@@ -506,46 +506,4 @@ extension CoreUsecase {
             }
         }
     }
-    
-    /// WorkbookGroupDetailVC 상에서 구매로직, 책장으로 넘어가지 않은 상태에서 저장로직이 필요
-    static func downloadWorkbookGroup(wgid: Int, networkUsecase: (UserWorkbookGroupsFetchable & WorkbookGroupSearchable & S3ImageFetchable), completion: @escaping (WorkbookGroup_Core?) -> Void) {
-        // WorkbookGroup_Core 존재하는 경우 Error
-        if let _ = Self.fetchWorkbookGroup(wgid: wgid) {
-            print("duplicated workbook error")
-            completion(nil)
-            return
-        }
-        // 구매내역 -> workbookGroup 저장
-        print("fetch workbookGroup infos")
-        networkUsecase.getUserWorkbookGroupInfos { status, infos in
-            // network Error
-            guard status == .SUCCESS else {
-                completion(nil)
-                return
-            }
-            // Purchased Workbook not exist
-            guard let targetInfo = infos.first(where: { $0.wgid == wgid }) else {
-                print("Purchased WorkbookGroup not exist")
-                completion(nil)
-                return
-            }
-            // Fetch WorkbookGroup Info, save WorkbookGroup_Core
-            networkUsecase.searchWorkbookGroup(wgid: wgid) { status, workbookGroup in
-                guard status == .SUCCESS, let workbookGroup = workbookGroup else {
-                    print("workbookGroup info fetch error")
-                    completion(nil)
-                    return
-                }
-                
-                let workbookGroup_Core = WorkbookGroup_Core(context: CoreDataManager.shared.context)
-                workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: targetInfo)
-                workbookGroup_Core.fetchGroupcover(uuid: workbookGroup.groupCover, networkUsecase: networkUsecase) {
-                    CoreDataManager.saveCoreData()
-                    print("save workbookGroup(\(wgid)) complete")
-                    completion(workbookGroup_Core)
-                    return
-                }
-            }
-        }
-    }
 }

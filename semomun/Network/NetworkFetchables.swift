@@ -51,10 +51,6 @@ protocol PreviewsSearchable {
 protocol WorkbookSearchable {
     func getWorkbook(wid: Int, completion: @escaping (WorkbookOfDB?) -> ())
 }
-protocol WorkbookGroupSearchable {
-    func searchWorkbookGroup(tags: [TagOfDB]?, keyword: String?, page: Int?, limit: Int?, order: String?, completion: @escaping (NetworkStatus, SearchWorkbookGroups?) -> Void)
-    func searchWorkbookGroup(wgid: Int, completion: @escaping (NetworkStatus, WorkbookGroupOfDB?) -> Void)
-}
 // MARK: - Downloadable
 protocol SectionDownloadable {
     func downloadSection(sid: Int, completion: @escaping (SectionOfDB?) -> Void)
@@ -89,19 +85,12 @@ protocol UserWorkbooksFetchable {
     func getUserBookshelfInfos(completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
     func getUserBookshelfInfos(order: NetworkURL.PurchasesOrder, completion: @escaping (NetworkStatus, [BookshelfInfoOfDB]) -> Void)
 }
-protocol UserWorkbookGroupsFetchable {
-    func getUserWorkbookGroupInfos(completion: @escaping (NetworkStatus, [PurchasedWorkbookGroupInfoOfDB]) -> Void)
-}
 protocol UserLogSendable {
     func sendWorkbookEnterLog(wid: Int, datetime: Date)
 }
 protocol UserSubmissionSendable {
     func postProblemSubmissions(problems: [SubmissionProblem], completion: @escaping (NetworkStatus) -> Void)
     func postPageSubmissions(pages: [SubmissionPage], completion: @escaping (NetworkStatus) -> Void)
-}
-protocol UserTestResultFetchable {
-    func getPublicTestResult(wid: Int, completion: @escaping (NetworkStatus, PublicTestResultOfDB?) -> Void)
-    func getPrivateTestResults(wgid: Int, completion: @escaping (NetworkStatus, [PrivateTestResultOfDB]) -> Void)
 }
 protocol UserTestResultSendable {
     func sendUserTestResult(testResult: CalculatedTestResult, completion: @escaping (NetworkStatus) -> Void)

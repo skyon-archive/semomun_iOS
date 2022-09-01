@@ -10,7 +10,6 @@ import UIKit
 protocol BookshelfHomeDelegate: AnyObject {
     func showAllRecentWorkbooks()
     func showAllRecentPurchaseWorkbooks()
-    func showAllPracticeTests()
 }
 
 final class BookshelfHomeHeaderView: UICollectionReusableView {
@@ -32,8 +31,6 @@ final class BookshelfHomeHeaderView: UICollectionReusableView {
             self.delegate?.showAllRecentWorkbooks()
         case 1:
             self.delegate?.showAllRecentPurchaseWorkbooks()
-        case 2:
-            self.delegate?.showAllPracticeTests()
         default:
             assertionFailure("BookshelfHomeHeaderView section 개수가 이상합니다.")
         }

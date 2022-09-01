@@ -13,7 +13,6 @@ final class BookshelfVM {
     private(set) var networkUsecase: NetworkUsecase
     @Published private(set) var workbooksForRecent: [WorkbookCellInfo] = []
     @Published private(set) var workbooks: [WorkbookCellInfo] = []
-    @Published private(set) var workbookGroups: [WorkbookGroupCellInfo] = []
     @Published private(set) var warning: (title: String, text: String)?
     var currentWorkbooksOrder: DropdownOrderButton.BookshelfOrder = .recentPurchase
     var currentWorkbookGroupsOrder: DropdownOrderButton.BookshelfOrder = .recentRead
@@ -38,41 +37,12 @@ extension BookshelfVM {
             self.filteredSubject = .all
             self.reloadWorkbooks()
             self.reloadWorkbooksForRecent()
-            self.reloadWorkbookGroups()
         case .workbook:
             self.filteredSubject = .all
             self.reloadWorkbooks()
             self.fetchWorkbooks()
-        case .practiceTest:
-            self.filteredSubject = .all
-            self.reloadWorkbookGroups()
-            self.fetchWorkbookGroups()
         }
     }
-    
-    func reloadWorkbookGroups() {
-        guard UserDefaultsManager.isLogined == true else { return }
-        guard let workbookGroups = CoreUsecase.fetchWorkbookGroups() else {
-            print("no workbookGoups")
-            return
-        } // 이 함수를 빠져나가면 workbookGroups 는 제거되어야 한다.
-        
-        if NetworkStatusManager.isConnectedToInternet() {
-            NotificationCenter.default.post(name: .refreshBookshelf, object: nil) // HomeVM 에서 수신받아 reload 후 표시 연결
-        }
-        
-        // MARK: - 정렬로직 : order 값에 따라 -> Date 내림차순 정렬 (solved 값이 nil 인 경우 purchased 값으로 정렬)
-        switch self.currentWorkbookGroupsOrder {
-        case .recentPurchase:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.purchasedDate, $0, $1) }).map(\.cellInfo)
-        case .recentRead:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.recentDate, $0, $1) }).map(\.cellInfo)
-        case .titleDescending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $0, $1) }).map(\.cellInfo)
-        case .titleAscending:
-            self.workbookGroups = workbookGroups.sorted(by: { self.areWorkbookGroupsInDecreasingOrder(\.title, $1, $0) }).map(\.cellInfo)
-        }
-                                                        }
      
     func reloadWorkbooks() {
         guard UserDefaultsManager.isLogined == true else { return }
@@ -119,18 +89,12 @@ extension BookshelfVM {
         let taskGroup = DispatchGroup()
         
         taskGroup.enter()
-        self.fetchWorkbookGroupsFromNetwork() {
-            taskGroup.leave()
-        }
-        
-        taskGroup.enter()
         self.fetchWorkbooksFromNetwork() {
             taskGroup.leave()
         }
         
         taskGroup.notify(queue: .main) {
             CoreDataManager.saveCoreData()
-            self.reloadWorkbookGroups()
             self.reloadWorkbooks()
             self.reloadWorkbooksForRecent()
         }
@@ -141,30 +105,6 @@ extension BookshelfVM {
         self.fetchWorkbooksFromNetwork { [weak self] in
             CoreDataManager.saveCoreData()
             self?.reloadWorkbooks()
-        }
-    }
-    
-    func fetchWorkbookGroups() {
-        guard NetworkStatusManager.isConnectedToInternet() else { return }
-        self.fetchWorkbookGroupsFromNetwork { [weak self] in
-            CoreDataManager.saveCoreData()
-            self?.reloadWorkbookGroups()
-        }
-    }
-    
-    func fetchWorkbookGroupsFromNetwork(completion: @escaping (() -> Void)) {
-        self.networkUsecase.getUserWorkbookGroupInfos { [weak self] status, infos in
-            switch status {
-            case .SUCCESS:
-                if infos.isEmpty == false {
-                    self?.syncWorkbookGroups(infos: infos, completion: completion)
-                } else {
-                    completion()
-                }
-            default:
-                self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
-                completion()
-            }
         }
     }
     
@@ -187,7 +127,6 @@ extension BookshelfVM {
     func resetForLogout() {
         self.workbooksForRecent = []
         self.workbooks = []
-        self.workbookGroups = []
     }
 }
 
@@ -229,54 +168,6 @@ extension BookshelfVM {
                 return true
             }
             return leftDate > rightDate
-        }
-    }
-    
-    private func syncWorkbookGroups(infos userPurchases: [PurchasedWorkbookGroupInfoOfDB], completion: @escaping (() -> Void)) {
-        print("sync workbookGroups")
-        let localWorkbookGroupWgids = self.workbookGroups.map(\.wgid)
-        // Local 내에 없는 book 정보들의 수를 센다
-        let fetchCount: Int = userPurchases.filter { localWorkbookGroupWgids.contains($0.wgid) == false }.count
-        var currentCount: Int = 0
-        print("---------- sync workbookGroups ----------")
-        userPurchases.forEach { info in
-            // Local 내에 있는 WorkbookGroup 의 경우 recentDate 최신화 작업을 진행한다
-            // migration 의 경우를 포함하여 purchasedDate 값도 최신화한다
-            if localWorkbookGroupWgids.contains(info.wgid) {
-                if let targetWorkbookGroup = CoreUsecase.fetchWorkbookGroup(wgid: info.wgid) {
-                    targetWorkbookGroup.updateInfos(purchasedInfo: info)
-                    print("local workbookGroup(\(info.wgid)) update complete")
-                }
-            }
-            // Local 내에 없는 경우 필요정보를 받아와 저장한다
-            else {
-                self.networkUsecase.searchWorkbookGroup(wgid: info.wgid) { [weak self] status, workbookGroup in
-                    guard status == .SUCCESS, let workbookGroup = workbookGroup else {
-                        print("fetch workbookGroup(\(info.wgid)) error")
-                        self?.warning = (title: "동기화 작업 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
-                        completion()
-                        return
-                    }
-                    
-                    let workbookGroup_Core = WorkbookGroup_Core(context: CoreDataManager.shared.context)
-                    workbookGroup_Core.setValues(workbookGroup: workbookGroup, purchasedInfo: info)
-                    // workbookGroup 내 workbook 들은 아래 syncWorkbooks 를 통해 save 된다
-                    
-                    workbookGroup_Core.fetchGroupcover(uuid: workbookGroup.groupCover, networkUsecase: self?.networkUsecase) {
-                        print("save workbookGroup(\(info.wgid)) complete")
-                        currentCount += 1
-                        
-                        if currentCount == fetchCount {
-                            completion()
-                        }
-                    }
-                }
-            }
-        }
-        
-        // fetch 할 정보가 없을 경우 loading 종료
-        if fetchCount == 0 {
-            completion()
         }
     }
     

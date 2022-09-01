@@ -12,7 +12,6 @@ final class BookshelfVC: UIViewController {
     enum Tab: Int {
         case home = 0
         case workbook = 1
-        case practiceTest = 2
     }
     /* public */
     static let identifier = "BookshelfVC"
@@ -39,9 +38,6 @@ final class BookshelfVC: UIViewController {
     }
     private var hasWorkbooks: Bool {
         return self.viewModel?.workbooks.isEmpty == false
-    }
-    private var hasWorkbookGroups: Bool {
-        return self.viewModel?.workbookGroups.isEmpty == false
     }
     
     override func viewDidLoad() {
@@ -103,12 +99,10 @@ extension BookshelfVC {
     private func configureObservation() {
         NotificationCenter.default.addObserver(forName: .purchaseBook, object: nil, queue: .current) { [weak self] _ in
             self?.viewModel?.reloadWorkbooks()
-            self?.viewModel?.reloadWorkbookGroups()
             self?.viewModel?.fetchBookshelf()
         }
         NotificationCenter.default.addObserver(forName: .logined, object: nil, queue: .current) { [weak self] _ in
             self?.viewModel?.reloadWorkbooks()
-            self?.viewModel?.reloadWorkbookGroups()
             self?.viewModel?.fetchBookshelf()
         }
         NotificationCenter.default.addObserver(forName: .showRecentWorkbooks, object: nil, queue: .current) { [weak self] _ in
@@ -126,7 +120,6 @@ extension BookshelfVC {
     private func bindAll() {
         self.bindWorkbooksForRecent()
         self.bindWorkbooks()
-        self.bindWorkbookGroups()
         self.bindWarning()
     }
     /// Home : 최근에 푼 문제집 섹션 표시용
@@ -161,34 +154,8 @@ extension BookshelfVC {
                 case .workbook:
                     section = 0
                     count = workbooks.count
-                case .practiceTest, .none: return
-                }
-                let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
-                UIView.performWithoutAnimation {
-                    self?.collectionView.reloadItems(at: indexes)
-                }
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    /// Home: 실전 모의고사 섹션 표시용
-    /// Detail : 실전 모의고사 탭 표시용
-    /// Detail : 실전 모의고사 모두보기 표시용
-    private func bindWorkbookGroups() {
-        self.viewModel?.$workbookGroups
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] workbookGroups in
-                var count = 0
-                var section: Int = 0
-                switch self?.currentTab {
-                case .home:
-                    section = 2
-                    count = min(workbookGroups.count, UICollectionView.columnCount)
-                case .practiceTest:
-                    section = 0
-                    count = workbookGroups.count
-                case .workbook, .none: return
+                default:
+                    break
                 }
                 let indexes = (0..<count).map { IndexPath(row: $0, section: section) }
                 UIView.performWithoutAnimation {
@@ -212,7 +179,7 @@ extension BookshelfVC {
 
 extension BookshelfVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.currentTab == .home ? 3 : 1
+        return self.currentTab == .home ? 2 : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -224,9 +191,6 @@ extension BookshelfVC: UICollectionViewDataSource {
             } else if self.currentTab == .workbook {
                 let rawCount = self.viewModel?.workbooks.count ?? 1
                 return max(1, rawCount)
-            } else if self.currentTab == .practiceTest {
-                let rawCount = self.viewModel?.workbookGroups.count ?? 1
-                return max(1, rawCount)
             } else {
                 assertionFailure("numberOfItemsInSection Error")
                 return 1
@@ -237,13 +201,6 @@ extension BookshelfVC: UICollectionViewDataSource {
                 return 1
             }
             let rawCount = min(self.viewModel?.workbooks.count ?? 1, UICollectionView.columnCount)
-            return max(1, rawCount)
-        case 2:
-            guard self.currentTab == .home else {
-                assertionFailure("numberOfItemsInSection Error")
-                return 1
-            }
-            let rawCount = min(self.viewModel?.workbookGroups.count ?? 1, UICollectionView.columnCount)
             return max(1, rawCount)
         default:
             assertionFailure("numberOfItemsInSection Error")
@@ -267,12 +224,6 @@ extension BookshelfVC: UICollectionViewDataSource {
                 }
                 guard let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
                 cell.configure(with: info, delegate: self)
-            } else if self.currentTab == .practiceTest {
-                guard self.hasWorkbookGroups else {
-                    return self.warningCell(collectionView: collectionView, indexPath: indexPath, sectionName: "구매한 실전 모의고사") ?? UICollectionViewCell()
-                }
-                guard let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
-                cell.configure(with: info, delegate: self)
             } else {
                 assertionFailure("cellForItemAt Error")
             }
@@ -282,13 +233,6 @@ extension BookshelfVC: UICollectionViewDataSource {
             }
             guard self.currentTab == .home,
                   let info = self.viewModel?.workbooks[safe: indexPath.item] else { return cell }
-            cell.configure(with: info, delegate: self)
-        case 2:
-            guard self.hasWorkbookGroups else {
-                return self.warningCell(collectionView: collectionView, indexPath: indexPath) ?? UICollectionViewCell()
-            }
-            guard self.currentTab == .home,
-                  let info = self.viewModel?.workbookGroups[safe: indexPath.item] else { return cell }
             cell.configure(with: info, delegate: self)
         default:
             assertionFailure("cellForItemAt Error")
@@ -334,12 +278,14 @@ extension BookshelfVC: UICollectionViewDelegateFlowLayout {
             } else if self.currentTab == .workbook {
                 return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
             } else {
-                return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, CGFloat(60))
+                assertionFailure()
+                return .zero
             }
         case 1:
             return self.hasWorkbooks ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfWarningCell.cellHeight)
         default:
-            return self.hasWorkbookGroups ? UICollectionView.bookcoverCellSize : CGSize(self.warningCellWidth, BookshelfWarningCell.cellHeight)
+            assertionFailure()
+            return .zero
         }
     }
     
@@ -382,11 +328,6 @@ extension BookshelfVC: BookshelfHomeDelegate {
         self.viewModel?.currentWorkbooksOrder = .recentPurchase
         self.currentTab = .workbook
     }
-    
-    func showAllPracticeTests() {
-        self.viewModel?.currentWorkbookGroupsOrder = .recentRead
-        self.currentTab = .practiceTest
-    }
 }
 
 extension BookshelfVC: BookshelfDetailDelegate {
@@ -400,7 +341,6 @@ extension BookshelfVC: BookshelfDetailDelegate {
             self.viewModel?.reloadWorkbooks()
         } else {
             self.viewModel?.currentWorkbookGroupsOrder = order
-            self.viewModel?.reloadWorkbookGroups()
         }
     }
     

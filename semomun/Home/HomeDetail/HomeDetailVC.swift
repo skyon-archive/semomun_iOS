@@ -81,10 +81,7 @@ class HomeDetailVC<T: HomeBookcoverCellInfo>: HomeDetailVCDelegates {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cellData = self.viewModel.cellData[safe: indexPath.item] else { return }
-        
-        if let wid = cellData.workbookDetailInfo.wid {
-            self.searchWorkbook(wid: wid)
-        }
+        self.searchWorkbook(wid: cellData.wid)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

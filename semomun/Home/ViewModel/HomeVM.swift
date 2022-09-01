@@ -284,22 +284,6 @@ extension HomeVM {
         }
     }
     
-    func fetchWorkbookGroups(page: Int, order: DropdownOrderButton.SearchOrder, completion: @escaping ([WorkbookGroupPreviewOfDB]?) -> Void) {
-        // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
-        self.networkUsecase.searchWorkbookGroup(tags: nil, keyword: nil, page: page, limit: 30, order: order.param) { status, searchWorkbookGroups in
-            guard status == .SUCCESS else {
-                completion(nil)
-                return
-            }
-            guard let searchWorkbookGroups = searchWorkbookGroups?.workbookGroups else {
-                completion(nil)
-                return
-            }
-            
-            completion(searchWorkbookGroups)
-        }
-    }
-    
     func fetchTagContent(tagOfDB: TagOfDB, order: DropdownOrderButton.SearchOrder, page: Int, completion: @escaping ([WorkbookPreviewOfDB]?) -> Void) {
         // MARK: limit 값은 깔끔하게 나눠 떨어지게 추후 바꾸기
         self.networkUsecase.getPreviews(tags: [tagOfDB], keyword: "", page: page, limit: 30, order: order.param, cid: nil) { status, preview in
