@@ -19,8 +19,8 @@ struct PurchasedItem {
         self.purchasedItem = purchasedItemofDB
         self.createdDate = createdDate
         self.transaction = Transaction(amount: amount)
-        self.title = purchasedItemofDB.workbook.title
-        self.descriptionImageID = purchasedItemofDB.workbook.bookcover
+        self.title = purchasedItemofDB.workbook?.title ?? ""
+        self.descriptionImageID = purchasedItemofDB.workbook?.bookcover ?? UUID()
     }
 }
 

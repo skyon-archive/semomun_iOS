@@ -196,7 +196,6 @@
 		872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872BD38A27FC69E100BDBADE /* ImageCacheManager.swift */; };
 		87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */; };
 		87319F9327E8D6230040108A /* NoticePopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87319F9227E8D6230040108A /* NoticePopupVC.swift */; };
-		8733159427799B77004E4A98 /* Categorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733159327799B77004E4A98 /* Categorys.swift */; };
 		873315962779A181004E4A98 /* Majors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873315952779A181004E4A98 /* Majors.swift */; };
 		873A34342890E7A3005F9AAA /* SolvedUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */; };
 		873A3436289107BD005F9AAA /* DropdownButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873A3435289107BD005F9AAA /* DropdownButton.swift */; };
@@ -555,7 +554,6 @@
 		872BD38A27FC69E100BDBADE /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		87315AE127DB90F70080CF2C /* NetworkStatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusManager.swift; sourceTree = "<group>"; };
 		87319F9227E8D6230040108A /* NoticePopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePopupVC.swift; sourceTree = "<group>"; };
-		8733159327799B77004E4A98 /* Categorys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorys.swift; sourceTree = "<group>"; };
 		873315952779A181004E4A98 /* Majors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Majors.swift; sourceTree = "<group>"; };
 		873A34332890E7A3005F9AAA /* SolvedUpdateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolvedUpdateable.swift; sourceTree = "<group>"; };
 		873A3435289107BD005F9AAA /* DropdownButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownButton.swift; sourceTree = "<group>"; };
@@ -796,7 +794,6 @@
 		25100CDA27D4AC0D002C18CB /* Decodables */ = {
 			isa = PBXGroup;
 			children = (
-				8733159327799B77004E4A98 /* Categorys.swift */,
 				87C85EED276F6ED6001C9C4A /* WorkbookPreviewOfDB.swift */,
 				87C85EEF276F6EE3001C9C4A /* WorkbookOfDB.swift */,
 				87C85EF1276F6EF0001C9C4A /* SectionHeaderOfDB.swift */,
@@ -2337,7 +2334,6 @@
 				250654A528811686003C05AD /* ProfileRows.swift in Sources */,
 				87EDCC8328644BFA0030066E /* PurchasedWorkbookGroupInfoOfDB.swift in Sources */,
 				87BC26A327A2976500F3418D /* BookshelfVM.swift in Sources */,
-				8733159427799B77004E4A98 /* Categorys.swift in Sources */,
 				87B660612880FE5F009FE9B2 /* SignupVC.swift in Sources */,
 				878B540B28816225002B5344 /* SignupVM.swift in Sources */,
 				879A52E127D0BE97000B4D97 /* NetworkResult.swift in Sources */,

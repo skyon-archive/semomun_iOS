@@ -28,7 +28,7 @@ struct PayHistoryofDB: Decodable {
 }
 
 struct PurchasedItemofDB: Decodable {
-    let workbook: PurchasedWorkbookofDB
+    let workbook: PurchasedWorkbookofDB?
 }
 
 struct PurchasedWorkbookofDB: Decodable {
