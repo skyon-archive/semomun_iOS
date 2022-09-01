@@ -559,7 +559,6 @@ extension NetworkUsecase: UserTestResultFetchable {
 
 extension NetworkUsecase: UserTestResultSendable {
     func sendUserTestResult(testResult: CalculatedTestResult, completion: @escaping (NetworkStatus) -> Void) {
-        
         self.network.request(url: NetworkURL.scoringResult, param: testResult, method: .post, tokenRequired: true) { result in
             
             if let statusCode = result.statusCode {

@@ -18,8 +18,6 @@ final class HomeVC: UIViewController {
         case tag
     }
     private var fixedSectionViews: [FixedSectionType: HomeSectionView] = [:]
-    /// FixedSection 뒤로 이어지는 인기 태그 관련 섹션들의 배열
-    private var popularCategorySectionViews: [HomeSectionView] = []
     private lazy var loadingView: LoadingView = {
         let view = LoadingView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +68,7 @@ final class HomeVC: UIViewController {
         self.configureStackViewLayout()
         
         self.configureViewModel()
-        self.configureStackViewContent()
+        self.configureFixedSection()
         self.configureAddObserver()
         
         self.bindAll()
@@ -90,9 +88,6 @@ final class HomeVC: UIViewController {
         coordinator.animate(
             alongsideTransition: { [weak self] _ in
                 self?.fixedSectionViews.values.forEach {
-                    $0.collectionView.collectionViewLayout.invalidateLayout()
-                }
-                self?.popularCategorySectionViews.forEach {
                     $0.collectionView.collectionViewLayout.invalidateLayout()
                 }
             }
@@ -129,7 +124,7 @@ extension HomeVC {
         NSLayoutConstraint.activate([
             self.roundedBackground.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor),
             // 아래방향 스크롤 overflow가 일어나도 흰색 배경이 보이도록 여백 설정
-            self.roundedBackground.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 500),
+            self.roundedBackground.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: 1000),
             self.roundedBackground.leadingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.leadingAnchor),
             self.roundedBackground.trailingAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.trailingAnchor),
             self.scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: self.roundedBackground.widthAnchor),
@@ -143,7 +138,7 @@ extension HomeVC {
             self.stackView.topAnchor.constraint(equalTo: self.roundedBackground.topAnchor, constant: 40),
             self.stackView.trailingAnchor.constraint(equalTo: self.roundedBackground.trailingAnchor),
             // configureScrollViewBackgroundLayout에서 설정한 여백 값만큼 아래 여백을 설정
-            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -UICollectionView.gridPadding-500),
+            self.stackView.bottomAnchor.constraint(equalTo: self.roundedBackground.bottomAnchor, constant: -UICollectionView.gridPadding-1000),
             self.stackView.leadingAnchor.constraint(equalTo: self.roundedBackground.leadingAnchor, constant: 0),
         ])
     }
@@ -151,11 +146,6 @@ extension HomeVC {
 
 // MARK: Configure StackView
 extension HomeVC {
-    private func configureStackViewContent() {
-        self.configureFixedSection()
-        self.configurePopularCategorySection()
-    }
-    
     private func configureFixedSection() {
         FixedSectionType.allCases.forEach { sectionType in
             let sectionView = HomeSectionView(hasTagList: sectionType == .tag)
@@ -170,9 +160,9 @@ extension HomeVC {
             
             let sectionTitle: String
             switch sectionType {
-                case .bestseller: sectionTitle = "베스트셀러"
-                case .recent: sectionTitle = "최근에 푼 문제집"
-                case .tag: sectionTitle = "나의 태그"
+            case .bestseller: sectionTitle = "베스트셀러"
+            case .recent: sectionTitle = "최근에 푼 문제집"
+            case .tag: sectionTitle = "나의 태그"
             }
             
             sectionView.configureContent(
@@ -185,24 +175,6 @@ extension HomeVC {
             }
             
             self.fixedSectionViews[sectionType] = sectionView
-        }
-    }
-    
-    /// - Warning: ViewModel이 필요한 메소드
-    private func configurePopularCategorySection() {
-        guard let viewModel = self.viewModel else { return }
-        self.popularCategorySectionViews = (0..<viewModel.popularTagSectionCount).map { idx in
-            let sectionView = HomeSectionView(hasTagList: false)
-            self.addSectionToStackView(sectionView)
-            
-            // 인기 태그 섹션의 태그값 = 상단에 있는 고정 섹션들의 개수 + 인기태그들 사이에서 섹션이 가지는 인덱스
-            let tag = FixedSectionType.allCases.count + idx
-            sectionView.configureContent(
-                collectionViewTag: tag,
-                delegate: self
-            )
-            
-            return sectionView
         }
     }
     
@@ -272,10 +244,8 @@ extension HomeVC: UICollectionViewDataSource {
             case .tag:
                 return self.viewModel?.workbooksWithTags.count ?? 0
             }
-        } else { // 인기 태그 섹션들
-            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            let tagContent = self.viewModel?.popularCategoryContents[safe: popularTagSectionIndex]
-            return tagContent?.previews.count ?? 0
+        } else {
+            return 0
         }
     }
     
@@ -296,10 +266,7 @@ extension HomeVC: UICollectionViewDataSource {
                 cell.configure(with: preview, networkUsecase: networkUsecase)
             }
         } else { // 인기 태그 섹션들
-            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let tagContent = self.viewModel?.popularCategoryContents[safe: popularTagSectionIndex] else { return cell }
-            let preview = tagContent.previews[indexPath.item]
-            cell.configure(with: preview, networkUsecase: networkUsecase)
+            return cell
         }
         
         return cell
@@ -320,10 +287,6 @@ extension HomeVC: UICollectionViewDelegate {
                 guard let wid = self.viewModel?.recentEntered[indexPath.item].wid else { return }
                 self.searchWorkbook(wid: wid)
             }
-        } else { // 인기 태그 섹션들
-            let popularTagSectionIndex = collectionView.tag - FixedSectionType.allCases.count
-            guard let wid = self.viewModel?.popularCategoryContents[popularTagSectionIndex].previews[indexPath.item].wid else { return }
-            self.searchWorkbook(wid: wid)
         }
     }
     
@@ -356,7 +319,7 @@ extension HomeVC {
 
 extension HomeVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return UICollectionView.bookcoverCellSize
+        return UICollectionView.bookcoverCellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -406,7 +369,6 @@ extension HomeVC {
         self.bindBestSellers()
         self.bindRecent()
         self.bindTags()
-        self.bindPopularTagContent()
         
         self.bindOfflineStatus()
         self.bindLogined()
@@ -557,30 +519,6 @@ extension HomeVC {
                     self?.showLoader()
                 } else {
                     self?.removeLoader()
-                }
-            })
-            .store(in: &self.cancellables)
-    }
-    
-    private func bindPopularTagContent() {
-        self.viewModel?.$updatedPopularTagIndex
-            .receive(on: DispatchQueue.main)
-            .dropFirst()
-            .sink(receiveValue: { [weak self] idx in
-                guard let idx = idx,
-                      let sectionView = self?.popularCategorySectionViews[safe: idx],
-                      let categoryContent = self?.viewModel?.popularCategoryContents[safe: idx] else {
-                    return
-                }
-                
-                sectionView.configureTitle(to: categoryContent.category.name)
-                sectionView.collectionView.reloadData()
-                
-                sectionView.configureSeeAllAction { [weak self] in
-                    let networkUsecase = NetworkUsecase(network: Network())
-                    let vm = CategoryDetailVM(categoryOfDB: categoryContent.category, networkUsecase: networkUsecase)
-                    let vc =  CategoryDetailVC(viewModel: vm)
-                    self?.navigationController?.pushViewController(vc, animated: true)
                 }
             })
             .store(in: &self.cancellables)

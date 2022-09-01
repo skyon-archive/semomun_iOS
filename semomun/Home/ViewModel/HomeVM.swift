@@ -22,20 +22,12 @@ final class HomeVM {
     @Published private(set) var updateToVersion: String?
     @Published private(set) var popupURL: URL?
     @Published private(set) var isMigration: Bool = false
-    /// popularTagContents의 element 중 DB에서 값을 받아온 것의 인덱스
-    @Published private(set) var updatedPopularTagIndex: Int? = nil
-    private(set) var popularCategoryContents: [(category: CategoryOfDB, previews: [WorkbookPreviewOfDB])] = []
-    let popularTagSectionCount = 15
     /* private */
     private let cellPerSection = 15
     
     init(networkUsecase: NetworkUsecase) {
         self.networkUsecase = networkUsecase
         self.configureObservation()
-        self.popularCategoryContents = .init(
-            repeating: (CategoryOfDB(cid: 1, name: "", tagCount: nil), []),
-            count: self.popularTagSectionCount
-        )
     }
     
     // MARK: VC에서 바인딩 연결 완료 후 호출
@@ -155,7 +147,6 @@ extension HomeVM {
         self.fetchBestSellers()
         self.fetchTags()
         self.fetchPopup()
-        self.fetchPopularTagContents()
     }
     
     private func fetchLogined() {
@@ -239,33 +230,6 @@ extension HomeVM {
                 self?.recentEntered = Array(infos.prefix(sectionSize))
             default:
                 self?.warning = (title: "구매내역 수신 에러", text: "네트워크 확인 후 재시도해주시기 바랍니다.")
-            }
-        }
-    }
-    
-    private func fetchPopularTagContents() {
-        self.networkUsecase.getCategories { [weak self] status, categories in
-            guard let sectionSize = self?.cellPerSection,
-                  let popularTagSectionCount = self?.popularTagSectionCount else {
-                return
-            }
-            guard status == .SUCCESS else {
-                self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                return
-            }
-            categories.prefix(popularTagSectionCount).enumerated().forEach { idx, category in
-                self?.networkUsecase.getPreviews(tags: [], keyword: "", page: 1, limit: sectionSize, order: nil, cid: category.cid) { [weak self] status, preview in
-                    if status == .SUCCESS {
-                        guard let preview = preview?.workbooks else {
-                            self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                            return
-                        }
-                        self?.popularCategoryContents[idx] = (category, preview)
-                        self?.updatedPopularTagIndex = idx
-                    } else {
-                        self?.warning = ("네트워크 에러", "네트워크 연결을 확인 후 다시 시도하세요")
-                    }
-                }
             }
         }
     }
