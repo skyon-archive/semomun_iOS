@@ -159,7 +159,6 @@
 		871B6E53276EE48D008CEEBA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871B6E52276EE48D008CEEBA /* SceneDelegate.swift */; };
 		871B6E58276EE48D008CEEBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E56276EE48D008CEEBA /* Main.storyboard */; };
 		871B6E5A276EE48D008CEEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E59276EE48D008CEEBA /* Assets.xcassets */; };
-		871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */; };
 		871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E65276EE584008CEEBA /* Kingfisher */; };
 		871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E68276EE5AB008CEEBA /* Alamofire */; };
 		871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 871B6E6B276EE5E7008CEEBA /* GoogleSignIn */; };
@@ -353,7 +352,6 @@
 		25263BE827F1DC7F0097F678 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
-		2539E6BD27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		253F12ED288FC13700F5AB5A /* CellRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRegisterable.swift; sourceTree = "<group>"; };
 		253F12EF288FEB4900F5AB5A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
@@ -485,7 +483,6 @@
 		871B6E52276EE48D008CEEBA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		871B6E57276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		871B6E59276EE48D008CEEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		871B6E5C276EE48D008CEEBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		871B6E5E276EE48D008CEEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		871CD435287D48F500FD9308 /* SegmentedControlWithCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlWithCountView.swift; sourceTree = "<group>"; };
 		872045F02878160A00BDCACB /* BookshelfWarningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfWarningCell.swift; sourceTree = "<group>"; };
@@ -1173,7 +1170,6 @@
 				871B6E50276EE48D008CEEBA /* AppDelegate.swift */,
 				871B6E52276EE48D008CEEBA /* SceneDelegate.swift */,
 				871B6E59276EE48D008CEEBA /* Assets.xcassets */,
-				871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */,
 				871B6E5E276EE48D008CEEBA /* Info.plist */,
 				8720B035278E7A2200B8775F /* GoogleService-Info.plist */,
 				25CDEEA128C06B6000AACD47 /* semomun.xcdatamodeld */,
@@ -1816,7 +1812,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A31F5727E9E79300411987 /* termsOfElectronicTransaction.txt in Resources */,
-				871B6E5D276EE48D008CEEBA /* LaunchScreen.storyboard in Resources */,
 				8716E92A279A5D9200B33A5E /* HomeSearchBookshelf.storyboard in Resources */,
 				87E7A54F277EC64500359BAE /* personalInformationProcessingPolicy.txt in Resources */,
 				258FA11A286446CA0008701C /* TestPrivateTestResultOfDBJSON.json in Resources */,
@@ -2156,15 +2151,6 @@
 				2539E6BC27886C140012645F /* ko */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		871B6E5B276EE48D008CEEBA /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				871B6E5C276EE48D008CEEBA /* Base */,
-				2539E6BD27886C140012645F /* ko */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

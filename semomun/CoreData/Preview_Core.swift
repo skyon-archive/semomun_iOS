@@ -35,15 +35,8 @@ extension Preview_Core {
         case purchasedDate
         case recentDate
         case progressCount
-        case wgid
-        case cutoff
-        case subject
-        case area
-        case standardDeviation
-        case averageScore
         case downloaded
         case terminated
-        case timelimit
     }
     
     @NSManaged public var productID: Int64 // NEW: 상품 식별자
@@ -121,21 +114,8 @@ public class Preview_Core: NSManagedObject{
         self.setValue(info.purchased, forKey: Attribute.purchasedDate.rawValue)
         self.setValue(info.recentDate, forKey: Attribute.recentDate.rawValue)
         self.setValue(max(0, self.progressCount), forKey: Attribute.progressCount.rawValue)
-        /* PracticeTest 용 property 저장 */
-        let wgid = workbook.wgid != nil ? Int64(workbook.wgid!) : nil
-        let deviation = workbook.standardDeviation != nil ? Int64(workbook.standardDeviation!) : nil
-        let averageScore = workbook.averageScore != nil ? Int64(workbook.averageScore!) : nil
-        self.setValue(wgid, forKey: Attribute.wgid.rawValue)
-        if let jsonData = try? JSONEncoder().encode(workbook.cutoff) {
-            self.setValue(jsonData, forKey: Attribute.cutoff.rawValue)
-        }
-        self.setValue(workbook.subject, forKey: Attribute.subject.rawValue)
-        self.setValue(workbook.area, forKey: Attribute.area.rawValue)
-        self.setValue(deviation, forKey: Attribute.standardDeviation.rawValue)
-        self.setValue(averageScore, forKey: Attribute.averageScore.rawValue)
         self.setValue(false, forKey: Attribute.downloaded.rawValue)
         self.setValue(false, forKey: Attribute.terminated.rawValue)
-        self.setValue(workbook.timelimit, forKey: Attribute.timelimit.rawValue)
     }
     
     func fetchBookcover(uuid: UUID, networkUsecase: S3ImageFetchable?, completion: @escaping (() -> Void)) {
