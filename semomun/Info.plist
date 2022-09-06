@@ -4,8 +4,6 @@
 <dict>
 	<key>API_ACCESS_KEY1</key>
 	<string>${API_ACCESS_KEY1}</string>
-    <key>SUBSCRIPTION_SECRET</key>
-    <string>${SUBSCRIPTION_SECRET}</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -46,6 +44,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>SUBSCRIPTION_SECRET</key>
+	<string>${SUBSCRIPTION_SECRET}</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PretendardVariable.ttf</string>

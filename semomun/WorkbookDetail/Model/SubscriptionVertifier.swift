@@ -23,7 +23,7 @@ class SubscriptionVertifier {
     
     func checkSubscripted(completion: @escaping (Result<Bool, ReceiptError>) -> Void) {
         if let lastVerified = lastVerified {
-            if -300 < lastVerified.timeIntervalSinceNow {
+            if -60*60*24 < lastVerified.timeIntervalSinceNow {
                 completion(.success(subscripted))
                 return
             }

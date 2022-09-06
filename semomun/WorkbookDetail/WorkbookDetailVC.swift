@@ -565,23 +565,10 @@ extension WorkbookDetailVC: WorkbookCellController {
     func showSection(sectionHeader: SectionHeader_Core, section: Section_Core) {
         guard self.cellAccessable == true else { return }
         
-        self.showLoader()
-        SubscriptionVertifier.shared.checkSubscripted { result in
-            switch result {
-            case .success(let subscripted):
-                if subscripted {
-                    self.navigationAnimation = false
-                    guard let preview = self.viewModel?.previewCore else { return }
-                    self.viewModel?.updateRecentDate()
-                    self.showStudyVC(section: section, workbook: preview, sectionHeader: sectionHeader)
-                } else {
-                    self.showPopupVC(type: .subscription)
-                }
-            case .failure:
-                self.showAlertWithOK(title: "사용자 정보 조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
-            }
-            self.removeLoader()
-        }
+        self.navigationAnimation = false
+        guard let preview = self.viewModel?.previewCore else { return }
+        self.viewModel?.updateRecentDate()
+        self.showStudyVC(section: section, workbook: preview, sectionHeader: sectionHeader)
     }
     
     func showAlertDownloadSectionFail() {

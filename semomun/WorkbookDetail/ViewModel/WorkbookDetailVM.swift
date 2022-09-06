@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import SwiftyStoreKit
 
-typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable & WorkbookSearchable)
+typealias WorkbookVMNetworkUsecaes = (S3ImageFetchable & UserInfoFetchable & UserPurchaseable & UserLogSendable & WorkbookSearchable & UserWorkbooksFetchable)
 
 final class WorkbookDetailVM {
     enum PopupType {
@@ -99,10 +99,11 @@ final class WorkbookDetailVM {
     }
     
     func purchaseWorkbook() {
-        self.showLoader = true
         guard let workbook = self.workbookDTO else { return }
+        self.showLoader = true
         
         self.networkUsecase.purchaseItem(productIDs: [workbook.productID]) { [weak self] status, credit in
+            self?.showLoader = false
             switch status {
             case .SUCCESS:
                 if let credit = credit,
@@ -110,7 +111,6 @@ final class WorkbookDetailVM {
                     print("구매 후 잔액: \(credit)")
                     userInfo.updateCredit(credit)
                 }
-                self?.showLoader = false
                 self?.goToBookshelf = true
             default:
                 self?.warning = (title: "구매반영 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
@@ -138,8 +138,25 @@ final class WorkbookDetailVM {
             switch status {
             case .SUCCESS:
                 self?.credit = credit
-                self?.validateSubscription { result in
-                    self?.popupType = result ? .purchase : .subscription
+                self?.networkUsecase.getUserBookshelfInfos { status, result in
+                    guard status == .SUCCESS else { return }
+                    let downloaded = result.map(\.wid).filter { wid in
+                        guard let sids = CoreUsecase.fetchSectionHeaders(wid: wid)?.map(\.sid) else {
+                            return false
+                        }
+                        
+                        return sids.contains { sid in
+                            return CoreUsecase.fetchSection(sid: Int(sid)) != nil
+                        }
+                    }
+                    print(downloaded)
+                    if downloaded.count >= 3 {
+                        self?.validateSubscription { result in
+                            self?.popupType = result ? .purchase : .subscription
+                        }
+                    } else {
+                        self?.popupType = .purchase
+                    }
                 }
             default:
                 self?.warning = (title: "잔액조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
@@ -150,6 +167,7 @@ final class WorkbookDetailVM {
     private func validateSubscription(completion: @escaping (Bool) -> ()) {
         self.showLoader = true
         SubscriptionVertifier.shared.checkSubscripted { [weak self] result in
+            self?.showLoader = false
             switch result {
             case .success(let bool):
                 completion(bool)
@@ -157,7 +175,6 @@ final class WorkbookDetailVM {
                 self?.warning = (title: "사용자 정보 조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
                 completion(false)
             }
-            self?.showLoader = false
         }
     }
 }

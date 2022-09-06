@@ -90,6 +90,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        SubscriptionVertifier.shared.checkSubscripted(completion: { _ in })
+        
         return true
     }
     
