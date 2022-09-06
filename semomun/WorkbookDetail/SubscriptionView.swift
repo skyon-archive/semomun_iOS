@@ -46,6 +46,7 @@ struct SubscriptionView: View {
                         .font(Font(uiFont: .largeStyleParagraph))
                         .foregroundColor(Color(UIColor.getSemomunColor(.darkGray)))
                         .padding(.bottom, 80)
+                        .multilineTextAlignment(.center)
                     FlowLayout(mode: .vstack, items: subjects) { text in
                         Text(text)
                             .font(Font(uiFont: .largeStyleParagraph))
@@ -62,7 +63,7 @@ struct SubscriptionView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     Button(action: purchase) {
-                        Text("정기 구독 시작하기 (월 7800원)")
+                        Text("정기 구독 시작하기 (월 8900원)")
                             .font(Font(uiFont: .heading3))
                             .frame(height: 60)
                             .frame(maxWidth: .infinity)
