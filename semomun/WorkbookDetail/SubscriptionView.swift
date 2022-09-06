@@ -17,7 +17,6 @@ fileprivate enum ActiveSheet: Identifiable {
 fileprivate enum SubscriptionAlert: Identifiable {
     case restoreSuccess
     case restoreFailed
-    case subscriptionSuccess
     case subscriptionFailed
     var id: Int { hashValue }
 }
@@ -110,8 +109,6 @@ struct SubscriptionView: View {
                     return Alert(title: .init("구매 내역 복원 완료"), dismissButton: .default(.init("확인"), action: { presentationMode.wrappedValue.dismiss() }))
                 case .restoreFailed:
                     return Alert(title: .init("구매 내역 복원 실패"), dismissButton: .default(.init("확인"), action: { presentationMode.wrappedValue.dismiss() }))
-                case .subscriptionSuccess:
-                    return Alert(title: .init("구독 완료"), dismissButton: .default(.init("확인"), action: { presentationMode.wrappedValue.dismiss() }))
                 case .subscriptionFailed:
                     return Alert(title: .init("구독 실패"), dismissButton: .default(.init("확인"), action: { presentationMode.wrappedValue.dismiss() }))
                 }
@@ -130,7 +127,6 @@ struct SubscriptionView: View {
             switch result {
             case .success(let purchase):
                 print("Purchase Success: \(purchase.productId)")
-                self.alert = .subscriptionSuccess
             case .error(let error):
                 switch error.code {
                 case .unknown: print("Unknown error. Please contact support")

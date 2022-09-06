@@ -11,7 +11,7 @@ final class LoadingView: UIView {
     private lazy var loader: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView(style: .large)
         loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.color = .white
+        loader.color = .getSemomunColor(.darkGray)
         return loader
     }()
     
@@ -22,7 +22,7 @@ final class LoadingView: UIView {
     
     private func configureLayout() {
         self.addSubview(self.loader)
-        self.backgroundColor = .darkGray
+        self.backgroundColor = .getSemomunColor(.background)
         self.alpha = 0.5
         
         NSLayoutConstraint.activate([

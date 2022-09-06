@@ -152,6 +152,7 @@ final class WorkbookDetailVM {
         }
         
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
+        self.showLoader = true
         SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
             switch result {
             case .success(let receipt):
@@ -179,6 +180,7 @@ final class WorkbookDetailVM {
                 print("Receipt verification failed: \(error)")
                 self?.warning = (title: "사용자 정보 조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
+            self?.showLoader = false
         }
     }
 }
