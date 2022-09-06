@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 final class WorkbookDetailVC: UIViewController, StoryboardController {
     static let identifier = "WorkbookDetailVC"
@@ -340,6 +341,9 @@ extension WorkbookDetailVC {
             popupVC.configureInfo(info: info)
             popupVC.configureCurrentMoney(money: credit)
             self.present(popupVC, animated: true, completion: nil)
+        case .subscription:
+            let view = UIHostingController(rootView: SubscriptionView())
+            self.present(view, animated: true)
         }
     }
     

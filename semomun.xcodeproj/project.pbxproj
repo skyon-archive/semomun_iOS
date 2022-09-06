@@ -31,6 +31,9 @@
 		2525B06327B2ABDD0080B8A8 /* UnivFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252AC35F27787145008AD5E4 /* UnivFinderView.swift */; };
 		25263BE527F1D5B50097F678 /* StoryboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE427F1D5B50097F678 /* StoryboardController.swift */; };
 		25263BE927F1DC7F0097F678 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25263BE827F1DC7F0097F678 /* UIStoryboard.swift */; };
+		253CA0C228C6ECDD0091C400 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253CA0C128C6ECDD0091C400 /* SubscriptionView.swift */; };
+		253CA0C428C6F85C0091C400 /* SubscriptionLongTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253CA0C328C6F85C0091C400 /* SubscriptionLongTextView.swift */; };
+		253CA0C828C7106E0091C400 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253CA0C728C7106E0091C400 /* FlowLayout.swift */; };
 		253F12EE288FC13700F5AB5A /* CellRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253F12ED288FC13700F5AB5A /* CellRegisterable.swift */; };
 		253F12F0288FEB4900F5AB5A /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253F12EF288FEB4900F5AB5A /* Font.swift */; };
 		254C3C0F27E205D70007BBA3 /* PayHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254C3C0E27E205D70007BBA3 /* PayHistory.swift */; };
@@ -101,6 +104,7 @@
 		25BF7B74287D145B00A5F6E1 /* HomeUserTagDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BF7B73287D145B00A5F6E1 /* HomeUserTagDetailVM.swift */; };
 		25BF7B76287D3DF800A5F6E1 /* HomeUserTagDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BF7B75287D3DF800A5F6E1 /* HomeUserTagDetailVC.swift */; };
 		25BFDC06288E3D8F00187AEF /* StudyToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFDC05288E3D8F00187AEF /* StudyToolbarView.swift */; };
+		25C8495328C1D38800D5FEEF /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 25C8495228C1D38800D5FEEF /* SwiftyStoreKit */; };
 		25CBB18C286EE996004F5740 /* UIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CBB18B286EE996004F5740 /* UIHostingController.swift */; };
 		25CDEEA328C06B6000AACD47 /* semomun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25CDEEA128C06B6000AACD47 /* semomun.xcdatamodeld */; };
 		25CF011F27F325A100FAB013 /* MyPurchasesVMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CF011E27F325A100FAB013 /* MyPurchasesVMTest.swift */; };
@@ -352,6 +356,9 @@
 		25263BE827F1DC7F0097F678 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		252AC35F27787145008AD5E4 /* UnivFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivFinderView.swift; sourceTree = "<group>"; };
 		2539E6BC27886C140012645F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		253CA0C128C6ECDD0091C400 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		253CA0C328C6F85C0091C400 /* SubscriptionLongTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionLongTextView.swift; sourceTree = "<group>"; };
+		253CA0C728C7106E0091C400 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		253F12ED288FC13700F5AB5A /* CellRegisterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellRegisterable.swift; sourceTree = "<group>"; };
 		253F12EF288FEB4900F5AB5A /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		254C3C0E27E205D70007BBA3 /* PayHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayHistory.swift; sourceTree = "<group>"; };
@@ -652,6 +659,7 @@
 				871B6E66276EE584008CEEBA /* Kingfisher in Frameworks */,
 				8720B034278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				871B6E69276EE5AB008CEEBA /* Alamofire in Frameworks */,
+				25C8495328C1D38800D5FEEF /* SwiftyStoreKit in Frameworks */,
 				8720B032278E775800B8775F /* FirebaseAnalytics in Frameworks */,
 				871B6E6C276EE5E7008CEEBA /* GoogleSignIn in Frameworks */,
 			);
@@ -894,6 +902,9 @@
 				2560E1E627914D03003BDAC0 /* Cell */,
 				25A9B2B5279164A50087E774 /* Model */,
 				87013B582887DA3E005D65DF /* WorkbookInfoPopupVC.swift */,
+				253CA0C128C6ECDD0091C400 /* SubscriptionView.swift */,
+				253CA0C328C6F85C0091C400 /* SubscriptionLongTextView.swift */,
+				253CA0C728C7106E0091C400 /* FlowLayout.swift */,
 			);
 			path = WorkbookDetail;
 			sourceTree = "<group>";
@@ -1749,6 +1760,7 @@
 				871B6E6B276EE5E7008CEEBA /* GoogleSignIn */,
 				8720B031278E775800B8775F /* FirebaseAnalytics */,
 				8720B033278E775800B8775F /* FirebaseAnalyticsWithoutAdIdSupport */,
+				25C8495228C1D38800D5FEEF /* SwiftyStoreKit */,
 			);
 			productName = semomun;
 			productReference = 871B6E4D276EE48D008CEEBA /* semomun.app */;
@@ -1788,6 +1800,7 @@
 				871B6E67276EE5AB008CEEBA /* XCRemoteSwiftPackageReference "Alamofire" */,
 				871B6E6A276EE5E7008CEEBA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				8720B030278E775800B8775F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				25C8495128C1D38800D5FEEF /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
 			);
 			productRefGroup = 871B6E4E276EE48D008CEEBA /* Products */;
 			projectDirPath = "";
@@ -1867,6 +1880,7 @@
 				87A99421278FF3B900E0A7B1 /* NetworkFetchables.swift in Sources */,
 				87599FF527A10E1D00E27042 /* SearchVM.swift in Sources */,
 				87315AE227DB90F70080CF2C /* NetworkStatusManager.swift in Sources */,
+				253CA0C428C6F85C0091C400 /* SubscriptionLongTextView.swift in Sources */,
 				2562772A279EE6C7006F9370 /* MainThemeSwitch.swift in Sources */,
 				872BD38B27FC69E100BDBADE /* ImageCacheManager.swift in Sources */,
 				2502533F277AB7500049F342 /* SchoolSearchUseCase.swift in Sources */,
@@ -1957,9 +1971,11 @@
 				2511944928597E2B0028F743 /* ExplanationSelectable.swift in Sources */,
 				871CD436287D48F500FD9308 /* SegmentedControlWithCountView.swift in Sources */,
 				25EC46942892634800C2EFCB /* CategoryDetailVC.swift in Sources */,
+				253CA0C828C7106E0091C400 /* FlowLayout.swift in Sources */,
 				87C85E3C276F66BC001C9C4A /* PKDrawing.swift in Sources */,
 				8716E960279A627C00B33A5E /* SingleWith4AnswerVC.swift in Sources */,
 				873A344028917791005F9AAA /* MultipleWithLongTextAnswerVM.swift in Sources */,
+				253CA0C228C6ECDD0091C400 /* SubscriptionView.swift in Sources */,
 				87DC941327BA6D93008F6105 /* LoadingView.swift in Sources */,
 				87E7A549277EBD4600359BAE /* LongTextPopupViewController.swift in Sources */,
 				8769EFB3288557A40047A692 /* SchoolCell.swift in Sources */,
@@ -2320,7 +2336,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -2355,7 +2371,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = semomun/semomun.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 4K9NF6L78D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = semomun/Info.plist;
@@ -2415,6 +2431,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		25C8495128C1D38800D5FEEF /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.3;
+			};
+		};
 		871B6E64276EE584008CEEBA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -2450,6 +2474,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		25C8495228C1D38800D5FEEF /* SwiftyStoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 25C8495128C1D38800D5FEEF /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
+			productName = SwiftyStoreKit;
+		};
 		871B6E65276EE584008CEEBA /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 871B6E64276EE584008CEEBA /* XCRemoteSwiftPackageReference "Kingfisher" */;

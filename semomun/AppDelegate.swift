@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import GoogleSignIn
 import Firebase
+import SwiftyStoreKit
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -72,8 +73,22 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        UNUserNotificationCenter.current().delegate = self
-        self.requestNotiAuth() // noti 권한 popup 표시
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                @unknown default:
+                    assertionFailure()
+                }
+            }
+        }
         
         return true
     }
@@ -156,28 +171,5 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
-    }
-}
-
-/// local Notification 설정 부분
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func requestNotiAuth() {
-        let authOptions = UNAuthorizationOptions(arrayLiteral: .alert, .badge, .sound)
-        
-        UNUserNotificationCenter
-            .current()
-            .requestAuthorization(options: authOptions) { isSuccess, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
     }
 }
