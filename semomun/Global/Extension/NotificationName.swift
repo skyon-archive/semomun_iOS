@@ -30,4 +30,5 @@ extension Notification.Name {
     static let hideSectionDeleteButton = Self.init(rawValue: "hideSectionDeleteButton")
     static let showRecentWorkbooks = Self.init(rawValue: "showRecentWorkbooks")
     static let showLoginStartVC = Self.init(rawValue: "showLoginStartVC")
+    static let updateSubscription = Self.init("updateSubscription")
 }

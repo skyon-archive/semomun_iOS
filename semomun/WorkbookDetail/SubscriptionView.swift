@@ -74,7 +74,7 @@ struct SubscriptionView: View {
                 .cornerRadius(.cornerRadius12)
                 .padding(.bottom, 20)
                 VStack(alignment: .leading) {
-                    Text("결제를 설정하고 iTunes로 구독하는 즉시 서비스를 이용할 수 있습니다. 세모문의 1개월 구독료는 8900원입니다. 결제 주기가 끝나기 24시간 전에 자동 갱신을 중지하지 않는 한 구독이 자동으로 갱신됩니다. 사용자는 계정 설정에서 구독을 관리하거나 자동 갱신을 사용 중지할 수 있습니다.")
+                    Text("결제를 설정하고 iTunes로 구독하는 즉시 서비스를 이용할 수 있습니다. 세모문의 1개월 구독료는 8900원이며 결제를 확인하면 Apple ID 계정으로 청구됩니다. 결제 주기가 끝나기 24시간 전에 자동 갱신을 중지하지 않는 한 구독이 자동으로 갱신됩니다. 사용자는 계정 설정에서 구독을 관리하거나 자동 갱신을 사용 중지할 수 있습니다.")
                         .font(Font(uiFont: .smallStyleParagraph))
                         .foregroundColor(Color(UIColor.getSemomunColor(.lightGray)))
                         .padding(.bottom, 10)
@@ -127,6 +127,7 @@ struct SubscriptionView: View {
             switch result {
             case .success(let purchase):
                 print("Purchase Success: \(purchase.productId)")
+                presentationMode.wrappedValue.dismiss()
             case .error(let error):
                 switch error.code {
                 case .unknown: print("Unknown error. Please contact support")
@@ -146,6 +147,7 @@ struct SubscriptionView: View {
                 self.alert = .subscriptionFailed
             }
             loading = false
+            NotificationCenter.default.post(name: .updateSubscription, object: nil)
         }
     }
     
@@ -163,6 +165,7 @@ struct SubscriptionView: View {
                 self.alert = .restoreSuccess
             }
             loading = false
+            NotificationCenter.default.post(name: .updateSubscription, object: nil)
         }
     }
 }

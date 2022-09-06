@@ -138,47 +138,24 @@ final class WorkbookDetailVM {
             switch status {
             case .SUCCESS:
                 self?.credit = credit
-                self?.validateSubscription()
+                self?.validateSubscription { result in
+                    self?.popupType = result ? .purchase : .subscription
+                }
             default:
                 self?.warning = (title: "잔액조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
             }
         }
     }
     
-    private func validateSubscription() {
-        guard let sharedSecret = Bundle.main.infoDictionary?["SUBSCRIPTION_SECRET"] as? String else {
-            assertionFailure()
-            return
-        }
-        
-        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
+    private func validateSubscription(completion: @escaping (Bool) -> ()) {
         self.showLoader = true
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
+        SubscriptionVertifier.shared.checkSubscripted { [weak self] result in
             switch result {
-            case .success(let receipt):
-                let productId = "com.skyon.semomun.monthlysubscription"
-                // Verify the purchase of a Subscription
-                let purchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable, // or .nonRenewing (see below)
-                    productId: productId,
-                    inReceipt: receipt
-                )
-                    
-                switch purchaseResult {
-                case .purchased(let expiryDate, let items):
-                    print("\(productId) is valid until \(expiryDate)\n\(items)\n")
-                    self?.popupType = .purchase
-                case .expired(let expiryDate, let items):
-                    print("\(productId) is expired since \(expiryDate)\n\(items)\n")
-                    self?.popupType = .subscription
-                case .notPurchased:
-                    print("The user has never purchased \(productId)")
-                    self?.popupType = .subscription
-                }
-
-            case .error(let error):
-                print("Receipt verification failed: \(error)")
+            case .success(let bool):
+                completion(bool)
+            case .failure:
                 self?.warning = (title: "사용자 정보 조회 실패", text: "네트워크 확인 후 다시 시도하시기 바랍니다.")
+                completion(false)
             }
             self?.showLoader = false
         }
